@@ -4,10 +4,10 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-sky-50 text-gray-800 font-sans px-5 pt-10 pb-6">
+    <footer className="bg-white border-t border-gray-200 text-gray-800 font-sans px-6 pt-12 pb-6">
       
       {/* Top Contact Section */}
-      <div className="bg-white shadow-md rounded-xl p-6 mb-10 flex flex-wrap justify-around items-center w-full">
+      <div className="bg-sky-50 rounded-xl p-6 mb-10 flex flex-wrap justify-between items-center gap-4 shadow-sm">
         <div className="flex items-center gap-3 text-gray-700 mb-4 sm:mb-0">
           <FaPhoneAlt className="text-blue-600" />
           <span>+91 XXXXXXXXXX</span>
@@ -25,10 +25,10 @@ const Footer = () => {
       </div>
 
       {/* Main Footer Content */}
-      <div className="flex flex-wrap justify-between text-gray-700">
+      <div className="flex flex-wrap justify-between md:divide-x divide-gray-300 text-gray-700 gap-6">
         
         {/* School Info */}
-        <div className="flex-1 min-w-[230px] mb-6">
+        <div className="flex-1 min-w-[230px] mb-6 md:px-4">
           <img src={logo} alt="School Logo" className="w-16 mb-3" />
           <p className="text-sm leading-relaxed">
             Global International School <br />
@@ -39,8 +39,8 @@ const Footer = () => {
         </div>
 
         {/* Explore Links */}
-        <div className="flex-1 min-w-[180px] mb-6">
-          <h4 className="font-semibold text-gray-900 mb-3">EXPLORE</h4>
+        <div className="flex-1 min-w-[180px] mb-6 md:px-4">
+          <h4 className="font-semibold text-blue-900 mb-3 uppercase tracking-wide">EXPLORE</h4>
           <ul className="space-y-2">
             <li className="hover:underline cursor-pointer">HOME</li>
             <li className="hover:underline cursor-pointer">ABOUT US</li>
@@ -51,8 +51,8 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div className="flex-1 min-w-[180px] mb-6">
-          <h4 className="font-semibold text-gray-900 mb-3">QUICK LINKS</h4>
+        <div className="flex-1 min-w-[180px] mb-6 md:px-4">
+          <h4 className="font-semibold text-blue-900 mb-3 uppercase tracking-wide">QUICK LINKS</h4>
           <ul className="space-y-2">
             <li className="hover:underline cursor-pointer">Alumni Connect</li>
             <li className="hover:underline cursor-pointer">Admissions</li>
@@ -62,8 +62,8 @@ const Footer = () => {
         </div>
 
         {/* Social Media */}
-        <div className="flex-1 min-w-[180px] mb-6">
-          <h4 className="font-semibold text-gray-900 mb-3">SOCIAL MEDIA</h4>
+        <div className="flex-1 min-w-[180px] mb-6 md:px-4">
+          <h4 className="font-semibold text-blue-900 mb-3 uppercase tracking-wide">SOCIAL MEDIA</h4>
           <ul className="space-y-2">
             <li className="hover:underline cursor-pointer">Instagram</li>
             <li className="hover:underline cursor-pointer">LinkedIn</li>
@@ -73,7 +73,7 @@ const Footer = () => {
       </div>
 
       {/* Optional: Bottom Note */}
-      <div className="text-center text-sm text-gray-500 mt-10">
+      <div className="text-center text-sm text-gray-500 mt-12 border-t pt-6 border-gray-200">
         © {new Date().getFullYear()} Global International School. All rights reserved.
       </div>
     </footer>
