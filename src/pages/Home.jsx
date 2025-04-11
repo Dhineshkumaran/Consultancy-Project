@@ -9,18 +9,17 @@ const HomePage = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center bg-gray-100 px-6 md:px-16 py-12">
+      <section className="min-h-screen flex items-center bg-gray-100 px-6 md:px-16 py-12 pt-32">
         <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between">
           <div className="md:w-1/2 text-center md:text-left">
             <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
-              Global Institute of Excellence
+              Global Matric Higher Secondary School
             </h1>
             <p className="text-lg text-gray-700 mb-6">
-              We are dedicated to fostering academic brilliance, nurturing innovation, and cultivating global citizens through quality education and values.
+              🎓 “Education is not the filling of a pail, but the lighting of a fire.” <br />
+              At <span className="font-semibold text-blue-800">GMHSS</span>, we ignite 🔥 curiosity, foster 💡 critical thinking, and empower students to shine 🌟 with knowledge and compassion around the globe 🌍.
             </p>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition duration-300">
-              Get Started
-            </button>
+            
           </div>
           <div className="md:w-1/2 mb-10 md:mb-0 flex justify-center">
             <div className="relative group">
