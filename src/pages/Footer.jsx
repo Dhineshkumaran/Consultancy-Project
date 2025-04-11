@@ -1,6 +1,7 @@
 import React from "react";
 import logo from '../assets/image.png';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -31,10 +32,7 @@ const Footer = () => {
         <div className="flex-1 min-w-[230px] mb-6 md:px-4">
           <img src={logo} alt="School Logo" className="w-16 mb-3" />
           <p className="text-sm leading-relaxed">
-            Global International School <br />
-            Affiliated to CBSE, New Delhi. Affiliation No. 1931647<br />
-            Dharapuram Road, Kangayam, A.P. Pudur,<br />
-            Kangayam Taluk, Tiruppur – 638701
+          Dharapuram Road, Kangayam, A.P. Pudur, Kangayam Taluk, Tiruppur – 638701
           </p>
         </div>
 
@@ -42,11 +40,10 @@ const Footer = () => {
         <div className="flex-1 min-w-[180px] mb-6 md:px-4">
           <h4 className="font-semibold text-blue-900 mb-3 uppercase tracking-wide">EXPLORE</h4>
           <ul className="space-y-2">
-            <li className="hover:underline cursor-pointer">HOME</li>
-            <li className="hover:underline cursor-pointer">ABOUT US</li>
-            <li className="hover:underline cursor-pointer">Life@GMHSS</li>
-            <li className="hover:underline cursor-pointer">Careers</li>
-            <li className="hover:underline cursor-pointer">Contact US</li>
+            <li><Link to="/" className="hover:underline">Home</Link></li>
+            <li><Link to="/about-us" className="hover:underline">About Us</Link></li>
+            <li><Link to="/careers" className="hover:underline">Careers</Link></li>
+            <li><Link to="/contact-us" className="hover:underline">Contact Us</Link></li>
           </ul>
         </div>
 
@@ -54,10 +51,9 @@ const Footer = () => {
         <div className="flex-1 min-w-[180px] mb-6 md:px-4">
           <h4 className="font-semibold text-blue-900 mb-3 uppercase tracking-wide">QUICK LINKS</h4>
           <ul className="space-y-2">
-            <li className="hover:underline cursor-pointer">Alumni Connect</li>
-            <li className="hover:underline cursor-pointer">Admissions</li>
-            <li className="hover:underline cursor-pointer">Fee Structure</li>
-            <li className="hover:underline cursor-pointer">Curriculum</li>
+            <li><Link to="/alumni-panel" className="hover:underline">Alumni Connect</Link></li>
+            <li><Link to="/admissions" className="hover:underline">Admissions</Link></li>
+            <li><Link to="/academics" className="hover:underline">Academics</Link></li>
           </ul>
         </div>
 
@@ -65,14 +61,26 @@ const Footer = () => {
         <div className="flex-1 min-w-[180px] mb-6 md:px-4">
           <h4 className="font-semibold text-blue-900 mb-3 uppercase tracking-wide">SOCIAL MEDIA</h4>
           <ul className="space-y-2">
-            <li className="hover:underline cursor-pointer">Instagram</li>
-            <li className="hover:underline cursor-pointer">LinkedIn</li>
-            <li className="hover:underline cursor-pointer">Facebook</li>
+            <li>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                Facebook
+              </a>
+            </li>
           </ul>
         </div>
       </div>
 
-      {/* Optional: Bottom Note */}
+      {/* Bottom Note */}
       <div className="text-center text-sm text-gray-500 mt-12 border-t pt-6 border-gray-200">
         © {new Date().getFullYear()} Global International School. All rights reserved.
       </div>
