@@ -53,13 +53,14 @@ function Header() {
                     {/* Desktop Nav */}
                     <div className="hidden md:flex md:items-center md:space-x-10">
                         <nav className="flex items-center space-x-6 text-blue-900 font-medium">
-                            <a href="#" className="hover:underline hover:text-blue-600">HOME</a>
-                            <a href="/aboutus" className="hover:underline hover:text-blue-600">ABOUT US</a>
-                            <a href="#" className="hover:underline hover:text-blue-600">INFRASTRUCTURE</a>
-                            <a href="#" className="hover:underline hover:text-blue-600">ACADEMICS</a>
-                            <a href="#" className="hover:underline hover:text-blue-600">COURSE</a>
-                            <a href="#" className="hover:underline hover:text-blue-600">ALUMNI</a>
-                            <a href="#" className="hover:underline hover:text-blue-600">ADMISSION</a>
+                            <a href="/" className="hover:underline hover:text-blue-600">HOME</a>
+                            <a href="/about-us" className="hover:underline hover:text-blue-600">ABOUT US</a>
+                            <a href="/infrastructure" className="hover:underline hover:text-blue-600">INFRASTRUCTURE</a>
+                            <a href="/academics" className="hover:underline hover:text-blue-600">ACADEMICS</a>
+                            <a href="/admissions" className="hover:underline hover:text-blue-600">ADMISSIONS</a>
+                            <a href="/event-gallery" className="hover:underline hover:text-blue-600">GALLERY</a>
+                            <a href="/contact-us" className="hover:underline hover:text-blue-600">CONTACT US</a>
+                            <a href="/alumni-panel" className="hover:underline hover:text-blue-600">ALUMNI</a>
                         </nav>
                         <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-5 rounded">
                             CONTACT US
