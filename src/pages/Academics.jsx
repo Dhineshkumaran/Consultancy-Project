@@ -1,9 +1,33 @@
-import React from 'react';
+import {React, useState, useEffect} from 'react';
 import Header from './Header';
 import Footer from './Footer';
-
+import { supabase } from '../config/supabaseClient';
 
 const Academics = () => {
+  const [syllabus, setSyllabus] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const getSyllabus = async () => {
+      try {
+        setLoading(true);
+        const { data: syllabuses, error } = await supabase
+          .from('syllabuses')
+          .select('*');
+        
+        if (error) throw error;
+        
+        console.log(syllabuses);
+        setSyllabus(syllabuses || []);
+      } catch (error) {
+        console.error('Error fetching syllabuses:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getSyllabus();
+  }, []); // Add empty dependency array to prevent infinite loop
+
   return (
     <>
       <Header />
@@ -66,18 +90,30 @@ const Academics = () => {
             <p className="text-lg leading-relaxed mb-4">
               Download the syllabus for your respective standard:
             </p>
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
-              {['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'].map((std, index) => (
-                <a
-                  key={index}
-                  href={`/downloads/syllabus/class-${std}.pdf`}
-                  download
-                  className="bg-blue-100 hover:bg-blue-200 transition text-blue-800 font-medium px-6 py-4 rounded-lg shadow text-center"
-                >
-                  Download Class {std} Syllabus
-                </a>
-              ))}
-            </div>
+            
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-8">
+                <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-800 animate-spin"></div>
+                <p className="mt-4 text-blue-800 font-medium">Loading syllabuses...</p>
+              </div>
+            ) : syllabus.length > 0 ? (
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+                {syllabus.map((data, index) => (
+                  <a
+                    key={index}
+                    href={data.file_url}
+                    download
+                    className="bg-blue-100 hover:bg-blue-200 transition text-blue-800 font-medium px-6 py-4 rounded-lg shadow text-center"
+                  >
+                    Download Class {data.class} Syllabus
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-gray-100 p-6 rounded-lg text-center">
+                <p className="text-gray-600">No syllabus files available at the moment.</p>
+              </div>
+            )}
           </div>
         </section>
       </main>
