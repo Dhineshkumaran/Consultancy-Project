@@ -55,20 +55,20 @@ function Header() {
                     {/* Desktop Nav */}
                     <div className="hidden md:flex md:items-center md:space-x-10">
                         <nav className="flex items-center space-x-6 text-blue-900 font-medium">
-                            <a href="/" className="hover:underline hover:text-blue-600">HOME</a>
-                            <a href="/about-us" className="hover:underline hover:text-blue-600">ABOUT US</a>
-                            <a href="/infrastructure" className="hover:underline hover:text-blue-600">INFRASTRUCTURE</a>
-                            <a href="/academics" className="hover:underline hover:text-blue-600">ACADEMICS</a>
-                            <a href="/admissions" className="hover:underline hover:text-blue-600">ADMISSIONS</a>
-                            <a href="/gallery" className="hover:underline hover:text-blue-600">GALLERY</a>
-                            <a href="/alumni-panel" className="relative hover:underline hover:text-blue-600 font-semibold text-blue-800">
+                            <a href="/" className="transition-transform duration-200 transform hover:text-yellow-500">HOME</a>
+                            <a href="/about-us" className="transition-transform duration-200 transform hover:text-yellow-500">ABOUT US</a>
+                            <a href="/infrastructure" className="transition-transform duration-200 transform hover:text-yellow-500">INFRASTRUCTURE</a>
+                            <a href="/academics" className="transition-transform duration-200 transform hover:text-yellow-500">ACADEMICS</a>
+                            <a href="/admissions" className="transition-transform duration-200 transform hover:text-yellow-500">ADMISSIONS</a>
+                            <a href="/gallery" className="transition-transform duration-200 transform hover:text-yellow-500">GALLERY</a>
+                            <a href="/alumni-panel" className="relative font-semibold text-blue-800 transition-transform duration-200 transform hover:text-yellow-500">
                               ALUMNI ✨
                               <span className="absolute -top-2 -right-3 text-xs text-white bg-red-500 px-1.5 py-0.5 rounded-full animate-pulse">
                                 NEW
                               </span>
                             </a>
-                            <a href="/careers" className="hover:underline hover:text-blue-600">CAREERS</a>
-                            <a href="/contact-us" className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-5 rounded">
+                            <a href="/careers" className="transition-transform duration-200 transform hover:text-yellow-500">CAREERS</a>
+                            <a href="/contact-us" className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-5 rounded transition-transform duration-200 transform hover:scale-105">
                                 CONTACT US
                             </a>
                         </nav>
@@ -79,17 +79,17 @@ function Header() {
                 {isOpen && (
                     <div className="md:hidden mt-4 space-y-2 text-center px-4 py-4 bg-white rounded-lg shadow-md">
                         <nav className="space-y-2 text-blue-900 font-medium">
-                            <a href="/" className="block animate-fade-in delay-[100ms] hover:underline hover:text-blue-600">HOME</a>
-                            <a href="/about-us" className="block animate-fade-in delay-[200ms] hover:underline hover:text-blue-600">ABOUT US</a>
-                            <a href="/infrastructure" className="block animate-fade-in delay-[300ms] hover:underline hover:text-blue-600">INFRASTRUCTURE</a>
-                            <a href="/academics" className="block animate-fade-in delay-[400ms] hover:underline hover:text-blue-600">ACADEMICS</a>
-                            <a href="/admissions" className="block animate-fade-in delay-[500ms] hover:underline hover:text-blue-600">ADMISSIONS</a>
-                            <a href="/gallery" className="block animate-fade-in delay-[600ms] hover:underline hover:text-blue-600">GALLERY</a>
-                            <a href="/alumni-panel" className="block animate-fade-in delay-[800ms] bg-blue-100 text-blue-800 font-semibold rounded-full px-4 py-1 hover:bg-blue-200">
+                            <a href="/" className="block animate-fade-in delay-[100ms] transition-transform duration-200 transform hover:text-yellow-500">HOME</a>
+                            <a href="/about-us" className="block animate-fade-in delay-[200ms] transition-transform duration-200 transform hover:text-yellow-500">ABOUT US</a>
+                            <a href="/infrastructure" className="block animate-fade-in delay-[300ms] transition-transform duration-200 transform hover:text-yellow-500">INFRASTRUCTURE</a>
+                            <a href="/academics" className="block animate-fade-in delay-[400ms] transition-transform duration-200 transform hover:text-yellow-500">ACADEMICS</a>
+                            <a href="/admissions" className="block animate-fade-in delay-[500ms] transition-transform duration-200 transform hover:text-yellow-500">ADMISSIONS</a>
+                            <a href="/gallery" className="block animate-fade-in delay-[600ms] transition-transform duration-200 transform hover:text-yellow-500">GALLERY</a>
+                            <a href="/alumni-panel" className="block animate-fade-in delay-[800ms] bg-blue-100 text-blue-800 font-semibold rounded-full px-4 py-1 transition-transform duration-200 transform hover:text-yellow-500">
                               ALUMNI ✨
                             </a>
-                            <a href="/careers" className="block animate-fade-in delay-[850ms] hover:underline hover:text-blue-600">CAREERS</a>
-                            <a href="/contact-us" className="block w-full mt-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-5 rounded animate-fade-in delay-[900ms]">
+                            <a href="/careers" className="block animate-fade-in delay-[850ms] transition-transform duration-200 transform hover:text-yellow-500">CAREERS</a>
+                            <a href="/contact-us" className="block w-full mt-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-5 rounded animate-fade-in delay-[900ms] transition-transform duration-200 transform hover:scale-105">
                                 CONTACT US
                             </a>
                         </nav>
