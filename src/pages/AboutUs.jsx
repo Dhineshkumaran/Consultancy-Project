@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
-// Reusable scroll animation hook
+// Reusable scroll animation hook 
 const useScrollAnimation = (direction = 'left') => {
   const ref = useRef();
 
