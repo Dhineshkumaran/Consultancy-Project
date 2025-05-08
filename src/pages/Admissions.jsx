@@ -1,7 +1,37 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import { supabase } from '../config/supabaseClient';
+
+// Reusable animation hook
+const useScrollAnimation = (direction = 'left') => {
+  const ref = useRef();
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.remove('opacity-0');
+          node.classList.add(direction === 'left' ? 'slide-in-left' : 'slide-in-right');
+        } else {
+          node.classList.remove('slide-in-left', 'slide-in-right');
+          node.classList.add('opacity-0');
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    node.classList.add('opacity-0');
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [direction]);
+
+  return ref;
+};
 
 const Admissions = () => {
   const [feeStructure, setFeeStructure] = useState([]);
@@ -12,15 +42,35 @@ const Admissions = () => {
   });
 
   useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes slide-in-left {
+        from { transform: translateX(-100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slide-in-right {
+        from { transform: translateX(100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      .slide-in-left {
+        animation: slide-in-left 0.8s ease-out forwards;
+      }
+      .slide-in-right {
+        animation: slide-in-right 0.8s ease-out forwards;
+      }
+      .opacity-0 {
+        opacity: 0;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
+  useEffect(() => {
     const getFeeStructure = async () => {
       try {
-        const { data: fee_structures, error } = await supabase
-          .from('fee_structures')
-          .select('*');
-        
+        const { data: fee_structures, error } = await supabase.from('fee_structures').select('*');
         if (error) throw error;
-        
-        console.log(fee_structures);
         setFeeStructure(fee_structures || []);
       } catch (error) {
         console.error('Error fetching fee structure:', error);
@@ -36,10 +86,7 @@ const Admissions = () => {
           .select('*')
           .order('updated_at', { ascending: false })
           .limit(1);
-        
         if (error) throw error;
-        
-        console.log(admission_document);
         setAdmissionDocument(admission_document || []);
       } catch (error) {
         console.error('Error fetching admission document:', error);
@@ -52,17 +99,24 @@ const Admissions = () => {
     getAdmissionDocument();
   }, []);
 
+  // Animation refs
+  const headingRef = useScrollAnimation('left');
+  const formRef = useScrollAnimation('right');
+  const processRef = useScrollAnimation('left');
+  const feeRef = useScrollAnimation('right');
+  const contactRef = useScrollAnimation('left');
+
   return (
     <>
       <Header />
       <main className="pt-28 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
         <section className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold text-center text-blue-900 mb-10 border-b pb-4">
+          <h1 ref={headingRef} className="text-4xl font-bold text-center text-blue-900 mb-10 border-b pb-4">
             Admissions
           </h1>
 
           {/* Download Form */}
-          <div className="text-center mb-12">
+          <div ref={formRef} className="text-center mb-12 transition-all duration-700">
             {loading.admissionDocument ? (
               <div className="flex justify-center items-center space-x-2">
                 <div className="w-4 h-4 rounded-full bg-blue-600 animate-pulse"></div>
@@ -86,7 +140,7 @@ const Admissions = () => {
           </div>
 
           {/* Admission Process */}
-          <div className="bg-white rounded-xl shadow-md p-8 mb-10">
+          <div ref={processRef} className="bg-white rounded-xl shadow-md p-8 mb-10 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Admission Process</h2>
             <p className="text-lg leading-relaxed">
               Admissions are open from January to May each academic year. Parents can collect the admission form from the school or download it from the website.
@@ -101,7 +155,7 @@ const Admissions = () => {
           </div>
 
           {/* Fee Structure */}
-          <div className="bg-white rounded-xl shadow-md p-8 mb-10">
+          <div ref={feeRef} className="bg-white rounded-xl shadow-md p-8 mb-10 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Fee Structure</h2>
             {loading.feeStructure ? (
               <div className="flex flex-col space-y-4">
@@ -138,7 +192,7 @@ const Admissions = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="bg-white rounded-xl shadow-md p-8">
+          <div ref={contactRef} className="bg-white rounded-xl shadow-md p-8 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Need Help?</h2>
             <p className="text-lg leading-relaxed mb-2">For more information about admissions, please contact:</p>
             <p className="text-lg"><strong>Phone:</strong> +91 98765 43210</p>

@@ -1,6 +1,36 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+
+// Hook for scroll-based animation
+const useScrollAnimation = (direction = "left") => {
+  const ref = useRef();
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.remove("opacity-0");
+          node.classList.add(direction === "left" ? "slide-in-left" : "slide-in-right");
+        } else {
+          node.classList.remove("slide-in-left", "slide-in-right");
+          node.classList.add("opacity-0");
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    node.classList.add("opacity-0");
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [direction]);
+
+  return ref;
+};
 
 const infrastructureData = [
   {
@@ -22,6 +52,31 @@ const infrastructureData = [
 ];
 
 const Infrastructure = () => {
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes slide-in-left {
+        from { transform: translateX(-100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slide-in-right {
+        from { transform: translateX(100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      .slide-in-left {
+        animation: slide-in-left 0.8s ease-out forwards;
+      }
+      .slide-in-right {
+        animation: slide-in-right 0.8s ease-out forwards;
+      }
+      .opacity-0 {
+        opacity: 0;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
   return (
     <div>
       <Header />
@@ -34,26 +89,28 @@ const Infrastructure = () => {
           We take pride in our modern infrastructure designed to support a holistic educational experience—spanning academics, arts, sports, and beyond.
         </p>
 
-        {infrastructureData.map((item, index) => (
-          <div
-            key={index}
-            className={`flex flex-wrap items-center justify-between gap-8 bg-white p-8 mb-10 rounded-xl shadow-md hover:shadow-xl transition duration-300 ${
-              item.reverse ? "flex-row-reverse" : ""
-            }`}
-          >
+        {infrastructureData.map((item, index) => {
+          const ref = useScrollAnimation(item.reverse ? "right" : "left");
+          return (
             <div
-              className="w-[300px] h-[180px] rounded-lg bg-gray-200 bg-cover bg-center shadow-md flex-shrink-0 flex items-center justify-center text-gray-400 font-bold text-xl"
-              style={{
-                backgroundImage: "url('https://via.placeholder.com/300x180')",
-              }}
+              key={index}
+              ref={ref}
+              className={`flex flex-wrap items-center justify-between gap-8 bg-white p-8 mb-10 rounded-xl shadow-md hover:shadow-xl transition duration-300 ${
+                item.reverse ? "flex-row-reverse" : ""
+              }`}
             >
-              Image
+              <div
+                className="w-[300px] h-[180px] rounded-lg bg-gray-200 bg-cover bg-center shadow-md flex-shrink-0 flex items-center justify-center text-gray-400 font-bold text-xl"
+                style={{
+                  backgroundImage: "url('https://via.placeholder.com/300x180')",
+                }}
+              >
+                Image
+              </div>
+              <p className="text-gray-700 text-lg leading-7 flex-1">{item.text}</p>
             </div>
-            <p className="text-gray-700 text-lg leading-7 flex-1">
-              {item.text}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <Footer />
     </div>

@@ -1,23 +1,74 @@
-import {React, useState, useEffect} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import { supabase } from '../config/supabaseClient';
 
+// Reusable scroll animation hook
+const useScrollAnimation = (direction = 'left') => {
+  const ref = useRef();
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.remove('opacity-0');
+          node.classList.add(direction === 'left' ? 'slide-in-left' : 'slide-in-right');
+        } else {
+          node.classList.remove('slide-in-left', 'slide-in-right');
+          node.classList.add('opacity-0');
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    node.classList.add('opacity-0');
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [direction]);
+
+  return ref;
+};
+
 const Academics = () => {
   const [syllabus, setSyllabus] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
+  // Inject scroll animation styles once
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes slide-in-left {
+        from { transform: translateX(-100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slide-in-right {
+        from { transform: translateX(100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      .slide-in-left {
+        animation: slide-in-left 0.8s ease-out forwards;
+      }
+      .slide-in-right {
+        animation: slide-in-right 0.8s ease-out forwards;
+      }
+      .opacity-0 {
+        opacity: 0;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
   useEffect(() => {
     const getSyllabus = async () => {
       try {
         setLoading(true);
-        const { data: syllabuses, error } = await supabase
-          .from('syllabuses')
-          .select('*');
-        
+        const { data: syllabuses, error } = await supabase.from('syllabuses').select('*');
         if (error) throw error;
-        
-        console.log(syllabuses);
         setSyllabus(syllabuses || []);
       } catch (error) {
         console.error('Error fetching syllabuses:', error);
@@ -26,7 +77,14 @@ const Academics = () => {
       }
     };
     getSyllabus();
-  }, []); // Add empty dependency array to prevent infinite loop
+  }, []);
+
+  // Section refs for animation
+  const curriculumRef = useScrollAnimation('left');
+  const departmentsRef = useScrollAnimation('right');
+  const methodologyRef = useScrollAnimation('left');
+  const achievementsRef = useScrollAnimation('right');
+  const syllabusRef = useScrollAnimation('left');
 
   return (
     <>
@@ -38,15 +96,17 @@ const Academics = () => {
           </h1>
 
           {/* Curriculum Overview */}
-          <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+          <div ref={curriculumRef} className="bg-white rounded-xl shadow-md p-8 mb-12 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Curriculum Overview</h2>
             <p className="text-lg leading-relaxed">
-              Our school follows a comprehensive curriculum aligned with national standards, focusing on academic excellence, critical thinking, and holistic development. We integrate co-curricular and extra-curricular programs to ensure students receive a well-rounded education.
+              Our school follows a comprehensive curriculum aligned with national standards, focusing on academic excellence,
+              critical thinking, and holistic development. We integrate co-curricular and extra-curricular programs to ensure students
+              receive a well-rounded education.
             </p>
           </div>
 
           {/* Departments */}
-          <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+          <div ref={departmentsRef} className="bg-white rounded-xl shadow-md p-8 mb-12 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Departments</h2>
             <ul className="list-disc list-inside text-lg leading-relaxed">
               <li>Science & Mathematics</li>
@@ -58,10 +118,12 @@ const Academics = () => {
           </div>
 
           {/* Teaching Methodology */}
-          <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+          <div ref={methodologyRef} className="bg-white rounded-xl shadow-md p-8 mb-12 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Teaching Methodology</h2>
             <p className="text-lg leading-relaxed mb-4">
-              We employ a learner-centered approach, combining traditional classroom teaching with digital learning tools, group activities, and experiential learning. Our experienced faculty uses innovative techniques to cater to various learning styles.
+              We employ a learner-centered approach, combining traditional classroom teaching with digital learning tools,
+              group activities, and experiential learning. Our experienced faculty uses innovative techniques to cater to
+              various learning styles.
             </p>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-gray-200 h-40 flex items-center justify-center rounded-lg text-gray-600 font-semibold shadow hover:shadow-lg transition">
@@ -77,20 +139,21 @@ const Academics = () => {
           </div>
 
           {/* Academic Achievements */}
-          <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+          <div ref={achievementsRef} className="bg-white rounded-xl shadow-md p-8 mb-12 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Academic Achievements</h2>
             <p className="text-lg leading-relaxed">
-              Our students consistently excel in board examinations and competitive tests. Many have been awarded scholarships, participated in international olympiads, and have gone on to pursue higher education at prestigious institutions globally.
+              Our students consistently excel in board examinations and competitive tests. Many have been awarded scholarships,
+              participated in international olympiads, and have gone on to pursue higher education at prestigious institutions globally.
             </p>
           </div>
 
           {/* Syllabus Downloads */}
-          <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+          <div ref={syllabusRef} className="bg-white rounded-xl shadow-md p-8 mb-12 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Download Syllabus</h2>
             <p className="text-lg leading-relaxed mb-4">
               Download the syllabus for your respective standard:
             </p>
-            
+
             {loading ? (
               <div className="flex flex-col items-center justify-center py-8">
                 <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-800 animate-spin"></div>
@@ -120,6 +183,6 @@ const Academics = () => {
       <Footer />
     </>
   );
-}; 
+};
 
 export default Academics;
