@@ -16,9 +16,6 @@ const useScrollAnimation = (direction = 'left') => {
         if (entry.isIntersecting) {
           node.classList.remove('opacity-0');
           node.classList.add(direction === 'left' ? 'slide-in-left' : 'slide-in-right');
-        } else {
-          node.classList.remove('slide-in-left', 'slide-in-right');
-          node.classList.add('opacity-0');
         }
       },
       { threshold: 0.2 }
