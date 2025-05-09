@@ -82,7 +82,7 @@ const Careers = () => {
     const getCareers = async () => {
       try {
         setLoading(true);
-        const { data: job_listings, error } = await supabase.from('job_listings').select('*');
+        const { data: job_listings, error } = await supabase.from('job_listings').select('*').eq('is_active', true);
         if (error) throw error;
         setCareers(job_listings || []);
       } catch (err) {
