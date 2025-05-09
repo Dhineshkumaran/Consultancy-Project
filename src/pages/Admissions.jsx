@@ -113,7 +113,7 @@ const Admissions = () => {
           </h1>
 
           {/* Download Form */}
-          <div ref={formRef} className="text-center mb-12 transition-all duration-700">
+          <div className="text-center mb-12">
             {loading.admissionDocument ? (
               <div className="flex justify-center items-center space-x-2">
                 <div className="w-4 h-4 rounded-full bg-blue-600 animate-pulse"></div>
