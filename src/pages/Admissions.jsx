@@ -96,9 +96,6 @@ const Admissions = () => {
     getAdmissionDocument();
   }, []);
 
-  // Animation refs
-  const headingRef = useScrollAnimation('left');
-  const formRef = useScrollAnimation('right');
   const processRef = useScrollAnimation('left');
   const feeRef = useScrollAnimation('right');
   const contactRef = useScrollAnimation('left');

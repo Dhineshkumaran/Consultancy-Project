@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import school from "../assets/school.png";
 import Footer from "./Footer";
 import Header from "./Header";
+import { supabase } from '../config/supabaseClient';
+import Loader from "./Loader";
 
 // Scroll animation hook
 const useScrollAnimation = (direction = "left") => {
@@ -31,6 +33,10 @@ const useScrollAnimation = (direction = "left") => {
 };
 
 const HomePage = () => {
+  const [highlights, setHighlights] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const style = document.createElement("style");
     style.innerHTML = `
@@ -56,6 +62,27 @@ const HomePage = () => {
     return () => document.head.removeChild(style);
   }, []);
 
+  useEffect(() => {
+    const getHighlights = async () => {
+      try {
+        setLoading(true);
+        const { data: highlights, error } = await supabase.from('gallery_images').select('*').order('created_at', {ascending: false});
+        if (error) throw error;
+        setHighlights(highlights || []);
+      } catch (err) {
+        console.error('Error fetching highlights:', err);
+        setError('Failed to load gallery images. Please try again later.');
+      } finally {
+        // Add a slight delay to make loader visible even on fast connections
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
+      }
+    };
+
+    getHighlights();
+  }, []);
+
   const heroRef = useScrollAnimation("left");
   const activitiesRef = useScrollAnimation("right");
   const aboutRef = useScrollAnimation("left");
@@ -64,6 +91,8 @@ const HomePage = () => {
 
   return (
     <div className="homepage bg-gray-50">
+      {loading && <Loader />}
+      
       <Header />
 
       {/* Hero Section */}
@@ -74,7 +103,7 @@ const HomePage = () => {
               Global Matric Higher Secondary School
             </h1>
             <p className="text-lg text-gray-700 mb-6">
-              🎓 “Education is not the filling of a pail, but the lighting of a fire.” <br />
+              🎓 "Education is not the filling of a pail, but the lighting of a fire." <br />
               At <span className="font-semibold text-blue-800">GMHSS</span>, we ignite 🔥 curiosity, foster 💡 critical thinking, and empower students to shine 🌟 with knowledge and compassion around the globe 🌍.
             </p>
           </div>
@@ -195,18 +224,42 @@ const HomePage = () => {
       {/* Recent Highlights Section */}
       <section ref={highlightsRef} className="py-20 px-6 md:px-16 bg-gray-100">
         <h2 className="text-4xl font-bold text-center text-blue-900 mb-12">Recent Highlights</h2>
-        <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-3">
-          {["Science Fair", "International Day", "Art Showcase"].map((title, i) => (
-            <div key={i} className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300">
-              <div className="w-full h-48 bg-gray-300 flex items-center justify-center">
-                <span className="text-2xl font-bold text-gray-500">Image</span>
+        {error ? (
+          <div className="text-center p-6 bg-red-50 rounded-lg text-red-600">
+            {error}
+          </div>
+        ) : (
+          <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-3">
+            {highlights.map((image, i) => (
+              <div key={i} className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300">
+                <div className="w-full h-64 bg-gray-300 relative">
+                  <img 
+                    src={image.file_url} 
+                    alt={image.title} 
+                    className="w-full h-full object-cover" 
+                  />
+                  <div className="absolute inset-0 bg-white bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <h3 className="text-lg font-semibold text-blue-800 px-4 text-center">{image.title}</h3>
+                  </div>
+                </div>
               </div>
-              <div className="p-5 text-center">
-                <h3 className="text-lg font-semibold text-blue-800">{title}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+        
+        {/* Show loading state while fetching highlights */}
+        {loading && !error && (
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-blue-600"></div>
+          </div>
+        )}
+
+        {/* Show empty state if no highlights */}
+        {!loading && !error && highlights.length === 0 && (
+          <div className="text-center p-6 bg-blue-50 rounded-lg text-blue-600">
+            No highlights available at the moment.
+          </div>
+        )}
       </section>
 
       <Footer />
