@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Loader from "./Loader";
 
 // Hook for scroll-based animation
 const useScrollAnimation = (direction = "left") => {
@@ -32,24 +33,36 @@ const useScrollAnimation = (direction = "left") => {
 const infrastructureData = [
   {
     text: "Our state-of-the-art science and computer labs provide students with hands-on learning experiences in a safe and well-equipped environment. These labs are designed to foster curiosity, innovation, and practical application of classroom concepts.",
+    image_url: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+    image_title: "Sample",
     reverse: false,
   },
   {
     text: "The school library is a hub of knowledge and exploration, offering a wide collection of academic resources, literature, and digital materials. It's a quiet sanctuary where students cultivate reading habits and conduct independent research.",
+    image_url: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+    image_title: "Sample",
     reverse: true,
   },
   {
     text: "Our smart classrooms integrate modern teaching aids like interactive whiteboards, projectors, and audio-visual tools to make learning more engaging and impactful. They support a blended approach to education that combines traditional teaching with digital innovation.",
+    image_url: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+    image_title: "Sample",
     reverse: false,
   },
   {
     text: "The play area is thoughtfully designed to promote physical development, teamwork, and recreation. Equipped with age-appropriate outdoor play equipment and green spaces, it ensures students enjoy a healthy balance of academics and play.",
+    image_url: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+    image_title: "Sample",
     reverse: true,
   },
 ];
 
 const Infrastructure = () => {
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
     const style = document.createElement("style");
     style.innerHTML = `
       @keyframes slide-in-left {
@@ -76,6 +89,8 @@ const Infrastructure = () => {
 
   return (
     <div>
+      {loading && <Loader />}
+
       <Header />
       <div className="bg-[#f9faff] px-6 pt-32 pb-16 font-sans">
         <h2 className="text-4xl font-bold text-center text-blue-900 border-b-2 border-gray-200 pb-4 mb-14">
@@ -96,14 +111,13 @@ const Infrastructure = () => {
                 item.reverse ? "flex-row-reverse" : ""
               }`}
             >
-              <div
-                className="w-[300px] h-[180px] rounded-lg bg-gray-200 bg-cover bg-center shadow-md flex-shrink-0 flex items-center justify-center text-gray-400 font-bold text-xl"
-                style={{
-                  backgroundImage: "url('https://via.placeholder.com/300x180')",
-                }}
-              >
-                Image
-              </div>
+            <div className="w-[300px] h-[180px] rounded-lg overflow-hidden bg-gray-200 shadow-md flex-shrink-0">
+              <img
+                src={item.image_url}
+                alt={item.image_title}
+                className="w-full h-full object-cover"
+              />
+            </div>
               <p className="text-gray-700 text-lg leading-7 flex-1">{item.text}</p>
             </div>
           );

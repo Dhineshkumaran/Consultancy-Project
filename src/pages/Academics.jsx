@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import Loader from './Loader';
 import { supabase } from '../config/supabaseClient';
 
 // Reusable scroll animation hook
@@ -30,12 +31,30 @@ const useScrollAnimation = (direction = 'left') => {
   return ref;
 };
 
+const methodologyData = [
+  {
+    image_url: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+    image_title: "Sample"
+  },
+  {
+    image_url: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+    image_title: "Sample"
+  },
+  {
+    image_url: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+    image_title: "Sample"
+  }
+]
+
 const Academics = () => {
   const [syllabus, setSyllabus] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Inject scroll animation styles once
   useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
     const style = document.createElement('style');
     style.innerHTML = `
       @keyframes slide-in-left {
@@ -70,7 +89,9 @@ const Academics = () => {
       } catch (error) {
         console.error('Error fetching syllabuses:', error);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
       }
     };
     getSyllabus();
@@ -123,15 +144,21 @@ const Academics = () => {
               various learning styles.
             </p>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-gray-200 h-40 flex items-center justify-center rounded-lg text-gray-600 font-semibold shadow hover:shadow-lg transition">
-                Interactive Classrooms
-              </div>
-              <div className="bg-gray-200 h-40 flex items-center justify-center rounded-lg text-gray-600 font-semibold shadow hover:shadow-lg transition">
-                Hands-on Labs
-              </div>
-              <div className="bg-gray-200 h-40 flex items-center justify-center rounded-lg text-gray-600 font-semibold shadow hover:shadow-lg transition">
-                Digital Resources
-              </div>
+              {methodologyData.map((item, index) => (
+                <div
+                  key={index}
+                  className="relative bg-gray-200 h-40 rounded-lg shadow hover:shadow-lg transition overflow-hidden group"
+                >
+                  <img
+                    src={item.image_url}
+                    alt={item.image_title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-white bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <h3 className="text-lg font-semibold text-blue-800 px-4 text-center">{item.image_title}</h3>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -152,10 +179,7 @@ const Academics = () => {
             </p>
 
             {loading ? (
-              <div className="flex flex-col items-center justify-center py-8">
-                <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-800 animate-spin"></div>
-                <p className="mt-4 text-blue-800 font-medium">Loading syllabuses...</p>
-              </div>
+              <Loader />
             ) : syllabus.length > 0 ? (
               <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
                 {syllabus.map((data, index) => (

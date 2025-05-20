@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { supabase } from '../config/supabaseClient';
 import Loader from './Loader';
 
 const useScrollAnimation = (direction = 'left') => {
@@ -31,12 +30,13 @@ const useScrollAnimation = (direction = 'left') => {
 };
 
 const AboutUs = () => {
-  const [gallery, setGallery] = useState({ campus: null, activities: null });
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   // Inject animation styles once
   useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
     const style = document.createElement('style');
     style.innerHTML = `
     @keyframes slide-in-left {
@@ -60,52 +60,6 @@ const AboutUs = () => {
     document.head.appendChild(style);
     return () => document.head.removeChild(style);
   }, []);
-  
-  useEffect(() => {
-    const getGalleryImages = async () => {
-      try {
-        setLoading(true);
-        
-        // Fetch the most recent 'campus' image
-        const { data: campusImage, error: campusError } = await supabase
-          .from('gallery_images')
-          .select('*')
-          .eq('category', 'campus')
-          .order('created_at', { ascending: false })
-          .limit(1);
-
-        // Fetch the most recent 'activities' image
-        const { data: activitiesImage, error: activitiesError } = await supabase
-          .from('gallery_images')
-          .select('*')
-          .eq('category', 'activities')
-          .order('created_at', { ascending: false })
-          .limit(1);
-
-        if (campusError || activitiesError) {
-          throw campusError || activitiesError;
-        }
-
-        const result = {
-          campus: campusImage?.[0] || null,
-          activities: activitiesImage?.[0] || null,
-        };
-
-        console.log("Gallery images loaded:", result);
-        setGallery(result);
-      } catch (err) {
-        console.error('Error fetching gallery images:', err);
-        setError('Failed to load gallery images. Please try again later.');
-      } finally {
-        // Add a slight delay to make loader visible even on fast connections
-        setTimeout(() => {
-          setLoading(false);
-        }, 800);
-      }
-    };
-  
-    getGalleryImages();
-  }, []);
 
   const sectionRefs = [useScrollAnimation('left'), useScrollAnimation('right')];
   const missionRef = useScrollAnimation('left');
@@ -116,12 +70,18 @@ const AboutUs = () => {
     {
       title: 'Who We Are',
       text: 'At Global International School, we believe that education is the foundation for building a better future. Since our inception, we have been committed to fostering a learning environment that nurtures academic excellence, character development, and global citizenship.',
-      image: gallery.campus
+      image: {
+        file_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/1746602683501-ofhiclbshqe.jpg",
+        title: "Quality Environment"
+      }
     },
     {
       title: 'What We Offer',
       text: 'Our school offers a dynamic and inclusive curriculum tailored to empower students with the knowledge, skills, and values needed to succeed in an ever-changing world. With a team of dedicated educators, state-of-the-art facilities, and a focus on holistic development, we strive to make learning an inspiring and transformative experience.',
-      image: gallery.activities
+      image: {
+        file_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/1746602683501-ofhiclbshqe.jpg",
+        title: "Smart Classes"
+      }
     }
   ];
 
@@ -151,9 +111,6 @@ const AboutUs = () => {
                     alt={item.image.title} 
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-white bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <h3 className="text-lg font-semibold text-blue-800 px-4 text-center">{item.image.title}</h3>
-                  </div>
                 </>
               ) : (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-600 text-lg font-semibold">
