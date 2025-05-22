@@ -71,16 +71,16 @@ const AboutUs = () => {
       title: 'Who We Are',
       text: 'At Global International School, we believe that education is the foundation for building a better future. Since our inception, we have been committed to fostering a learning environment that nurtures academic excellence, character development, and global citizenship.',
       image: {
-        file_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.59.08_1d27a3fa.jpg",
-        title: "Quality Environment"
+        file_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2017.15.47_b26fb309.jpg",
+        title: "Who we are"
       }
     },
     {
       title: 'What We Offer',
       text: 'Our school offers a dynamic and inclusive curriculum tailored to empower students with the knowledge, skills, and values needed to succeed in an ever-changing world. With a team of dedicated educators, state-of-the-art facilities, and a focus on holistic development, we strive to make learning an inspiring and transformative experience.',
       image: {
-        file_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2017.15.47_b26fb309.jpg",
-        title: "Smart Classes"
+        file_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2017.17.29_9d840399.jpg",
+        title: "What we offer"
       }
     }
   ];

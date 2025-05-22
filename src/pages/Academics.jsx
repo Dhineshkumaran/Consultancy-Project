@@ -34,15 +34,15 @@ const useScrollAnimation = (direction = 'left') => {
 const methodologyData = [
   {
     image_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.59.08_1d27a3fa.jpg",
-    image_title: "Sample"
+    image_title: "Colloborative Learning"
   },
   {
     image_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.59.51_42160972.jpg",
-    image_title: "Sample"
+    image_title: "Project based Learning"
   },
   {
     image_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2017.00.46_735970d8.jpg",
-    image_title: "Sample"
+    image_title: "Activity based Learning"
   }
 ]
 
