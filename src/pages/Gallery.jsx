@@ -1,34 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { supabase } from '../config/supabaseClient';
 import Header from './Header';
 import Footer from './Footer';
-
-// Scroll animation hook
-const useScrollAnimation = (direction = 'left') => {
-  const ref = useRef();
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          node.classList.remove('opacity-0');
-          node.classList.add(direction === 'left' ? 'slide-in-left' : 'slide-in-right');
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    node.classList.add('opacity-0');
-    observer.observe(node);
-
-    return () => observer.disconnect();
-  }, [direction]);
-
-  return ref;
-};
 
 const Gallery = () => {
   const [galleryData, setGalleryData] = useState({
@@ -61,15 +34,25 @@ const Gallery = () => {
           achievements: [],
           others: []
         };
-
+        
         data.forEach(item => {
-          if (categorizedData[item.category.toLowerCase()]) {
-            categorizedData[item.category.toLowerCase()].push(item);
+          const category = item.category?.toLowerCase()?.trim() || '';
+          
+          // Handle multiple possible category names for achievements
+          if (category === 'achievements' || category === 'achievement' || 
+              category === 'academic' || category === 'awards') {
+            categorizedData.achievements.push(item);
+          } else if (category === 'events' || category === 'event') {
+            categorizedData.events.push(item);
+          } else if (category === 'campus') {
+            categorizedData.campus.push(item);
+          } else if (category === 'activities' || category === 'activity') {
+            categorizedData.activities.push(item);
           } else {
             categorizedData.others.push(item);
           }
         });
-
+        
         setGalleryData(categorizedData);
       } catch (err) {
         console.error('Failed to fetch gallery images:', err);
@@ -82,72 +65,44 @@ const Gallery = () => {
     fetchGalleryImages();
   }, []);
 
-  // Inject animation CSS
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @keyframes slide-in-left {
-        from { transform: translateX(-100px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-      @keyframes slide-in-right {
-        from { transform: translateX(100px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-      .slide-in-left {
-        animation: slide-in-left 0.8s ease-out forwards;
-      }
-      .slide-in-right {
-        animation: slide-in-right 0.8s ease-out forwards;
-      }
-      .opacity-0 {
-        opacity: 0;
-      }
-    `;
-    document.head.appendChild(style);
-    return () => document.head.removeChild(style);
-  }, []);
-
-  // Image gallery component
+  // Image gallery component (simplified - no animations)
   const ImageGallery = ({ images, title, description }) => {
-    const sectionRef = useScrollAnimation('left');
-    
     if (images.length === 0) return null;
 
     return (
-      <div className="mb-12" ref={sectionRef}>
+      <div className="mb-12">
         <h2 className="text-2xl font-semibold text-blue-800 mb-4">{title}</h2>
         <p className="text-lg leading-relaxed mb-6">{description}</p>
         <div className="grid md:grid-cols-3 gap-6">
-          {images.map((image, index) => {
-            const boxRef = useScrollAnimation(index % 2 === 0 ? 'left' : 'right');
-            return (
-              <div
-                key={index}
-                ref={boxRef}
-                className="h-64 rounded-lg shadow-md overflow-hidden group relative"
-              >
-                <img 
-                  src={image.file_url} 
-                  alt={image.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                  <h3 className="text-white font-semibold text-lg">{image.title}</h3>
-                  <p className="text-white/90 text-sm line-clamp-2">{image.description}</p>
-                  {image.tags && image.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
-                      {image.tags.map((tag, tagIndex) => (
-                        <span key={tagIndex} className="text-xs bg-blue-500/80 text-white px-2 py-1 rounded">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
+          {images.map((image, index) => (
+            <div
+              key={`${image.file_url}-${index}`}
+              className="h-64 rounded-lg shadow-md overflow-hidden group relative"
+            >
+              <img 
+                src={image.file_url} 
+                alt={image.title || 'Gallery image'}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                <h3 className="text-white font-semibold text-lg">{image.title}</h3>
+                <p className="text-white/90 text-sm line-clamp-2">{image.description}</p>
+                {image.tags && image.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {image.tags.map((tag, tagIndex) => (
+                      <span key={tagIndex} className="text-xs bg-blue-500/80 text-white px-2 py-1 rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     );
