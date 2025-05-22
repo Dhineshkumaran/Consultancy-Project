@@ -66,7 +66,7 @@ const HomePage = () => {
     const getHighlights = async () => {
       try {
         setLoading(true);
-        const { data: highlights, error } = await supabase.from('gallery_images').select('*').order('created_at', {ascending: false});
+        const { data: highlights, error } = await supabase.from('gallery_images').select('*').order('created_at', {ascending: false}).limit(3);
         if (error) throw error;
         setHighlights(highlights || []);
       } catch (err) {
