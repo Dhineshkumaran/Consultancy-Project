@@ -11,11 +11,11 @@ const Footer = () => {
       <div className="bg-sky-50 rounded-xl p-6 mb-10 flex flex-wrap justify-between items-center gap-4 shadow-sm">
         <div className="flex items-center gap-3 text-gray-700 mb-4 sm:mb-0">
           <FaPhoneAlt className="text-blue-600" />
-          <span>+91 XXXXXXXXXX</span>
+          <span>+91 97503 99555</span>
         </div>
         <div className="flex items-center gap-3 text-gray-700 mb-4 sm:mb-0">
           <FaEnvelope className="text-blue-600" />
-          <span>globalschool@gmail.com</span>
+          <span>gmhss701@gmail.com</span>
         </div>
         <div className="flex items-center gap-3 text-gray-700 text-sm sm:text-base">
           <FaMapMarkerAlt className="text-blue-600" />
@@ -82,7 +82,7 @@ const Footer = () => {
 
       {/* Bottom Note */}
       <div className="text-center text-sm text-gray-500 mt-12 border-t pt-6 border-gray-200">
-        © {new Date().getFullYear()} Global International School. All rights reserved.
+        © {new Date().getFullYear()} Global Matriculation Higher Secondary School. All rights reserved.
       </div>
     </footer>
   );
