@@ -1,5 +1,5 @@
 import React from "react";
-import logo from '../assets/image.png';
+import logo from '../assets/school-logo.jpg';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
