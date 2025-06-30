@@ -109,8 +109,7 @@ const HomePage = () => {
           </div>
           <div className="md:w-1/2 mb-10 md:mb-0 flex justify-center">
             <div className="relative group">
-              <img
-                src={school}
+              <img src="https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.55.10_cc08c3c2.jpg"
                 alt="Campus Building"
                 className="relative w-full max-w-xl mx-auto rounded-lg transform transition-transform duration-500 group-hover:scale-105"
               />
