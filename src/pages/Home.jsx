@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import school from "../assets/school-logo.jpg";
+import school from "../assets/school.png";
 import principalImage from "../assets/principal.jpg";
 import Footer from "./Footer";
 import Header from "./Header";
