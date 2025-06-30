@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import school from "../assets/school.png";
+import principalImage from "../assets/principal.jpg";
 import Footer from "./Footer";
 import Header from "./Header";
 import { supabase } from '../config/supabaseClient';
@@ -182,42 +183,66 @@ const HomePage = () => {
       <section ref={leadershipRef} className="py-20 px-6 md:px-16 bg-white">
         <h2 className="text-4xl font-bold text-center text-blue-900 mb-12">Leadership Speaks</h2>
         <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-3">
-          {[
-            {
-              title: "Principal's Message",
-              text: "We believe in nurturing future leaders through a holistic approach to education.",
-              border: "border-yellow-400",
-              bg: "bg-yellow-50",
-              iconColor: "text-yellow-500",
-              iconPath: "M8 7h.01M12 7h.01M16 7h.01M12 19l-7-7h14l-7 7z",
-            },
-            {
-              title: "Dean's Message",
-              text: "Collaboration, curiosity, and commitment are at the heart of our academic spirit.",
-              border: "border-blue-400",
-              bg: "bg-blue-50",
-              iconColor: "text-blue-500",
-              iconPath: "M3 7h18M3 12h18M3 17h18",
-            },
-            {
-              title: "Director's Message",
-              text: "Our goal is to build bridges between students globally through meaningful interactions.",
-              border: "border-purple-400",
-              bg: "bg-purple-50",
-              iconColor: "text-purple-500",
-              iconPath: "M5 13l4 4L19 7",
-            },
-          ].map((msg, idx) => (
-            <div key={idx} className={`${msg.bg} p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 ${msg.border}`}>
-              <div className="flex items-center mb-4">
-                <svg className={`w-8 h-8 ${msg.iconColor} mr-3`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={msg.iconPath} />
-                </svg>
-                <h4 className={`text-xl font-semibold ${msg.iconColor.replace("text-", "text-")}`}>{msg.title}</h4>
+          {/* Principal's Card - Enhanced with image and details */}
+          <div className="bg-yellow-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-yellow-400 col-span-1 md:col-span-2">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+              <div className="flex-shrink-0">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-yellow-400 shadow-lg">
+                  <img 
+                    src={principalImage} 
+                    alt="Principal V MATHIVANAN" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback if image doesn't load
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                  <div className="w-full h-full bg-yellow-200 flex items-center justify-center text-4xl text-yellow-600 hidden">
+                    👨‍🎓
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-700 text-sm">"{msg.text}"</p>
+              <div className="flex-1 text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start mb-4">
+                  <svg className="w-8 h-8 text-yellow-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h.01M12 7h.01M16 7h.01M12 19l-7-7h14l-7 7z" />
+                  </svg>
+                  <h4 className="text-xl font-semibold text-yellow-600">Principal's Message</h4>
+                </div>
+                <p className="text-gray-700 text-sm mb-4 italic">
+                  "We believe in nurturing future leaders through a holistic approach to education."
+                </p>
+                <div className="border-t border-yellow-200 pt-4">
+                  <h5 className="font-bold text-blue-800 text-lg mb-2">V MATHIVANAN</h5>
+                  <p className="text-sm text-gray-600 mb-1">M.A., M.A., M.Phil., M.Ed., PGDCA.</p>
+                  <p className="text-sm font-medium text-yellow-600">Principal</p>
+                </div>
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* Dean's Message */}
+          <div className="bg-blue-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-blue-400">
+            <div className="flex items-center mb-4">
+              <svg className="w-8 h-8 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h18M3 12h18M3 17h18" />
+              </svg>
+              <h4 className="text-xl font-semibold text-blue-500">Dean's Message</h4>
+            </div>
+            <p className="text-gray-700 text-sm">"Collaboration, curiosity, and commitment are at the heart of our academic spirit."</p>
+          </div>
+
+          {/* Director's Message */}
+          <div className="bg-purple-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-purple-400 md:col-start-3 md:row-start-1">
+            <div className="flex items-center mb-4">
+              <svg className="w-8 h-8 text-purple-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <h4 className="text-xl font-semibold text-purple-500">Director's Message</h4>
+            </div>
+            <p className="text-gray-700 text-sm">"Our goal is to build bridges between students globally through meaningful interactions."</p>
+          </div>
         </div>
       </section>
 
