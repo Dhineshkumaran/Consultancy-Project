@@ -189,8 +189,8 @@ const Admissions = () => {
           <div ref={contactRef} className="bg-white rounded-xl shadow-md p-8 transition-all duration-700">
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">Need Help?</h2>
             <p className="text-lg leading-relaxed mb-2">For more information about admissions, please contact:</p>
-            <p className="text-lg"><strong>Phone:</strong> +91 98765 43210</p>
-            <p className="text-lg"><strong>Email:</strong> admissions@schoolname.edu.in</p>
+            <p className="text-lg"><strong>Phone:</strong> +91 97503 99555</p>
+            <p className="text-lg"><strong>Email:</strong> gmhss701@gmail.com</p>
           </div>
         </section>
       </main>
