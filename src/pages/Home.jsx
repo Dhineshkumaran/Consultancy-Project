@@ -217,7 +217,7 @@ const HomePage = () => {
             </div>
           </div>
 
-          <div className="bg-blue-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-blue-400">
+{/*           <div className="bg-blue-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-blue-400">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
               <div className="flex-shrink-0">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-400 shadow-lg">
@@ -243,9 +243,9 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className="bg-purple-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-purple-400">
+{/*           <div className="bg-purple-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-purple-400">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
               <div className="flex-shrink-0">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-purple-400 shadow-lg">
@@ -271,7 +271,7 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
