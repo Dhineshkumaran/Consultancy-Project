@@ -34,25 +34,23 @@ const Gallery = () => {
           achievements: [],
           others: []
         };
-        
+
         data.forEach(item => {
           const category = item.category?.toLowerCase()?.trim() || '';
-          
-          // Handle multiple possible category names for achievements
-          if (category === 'achievements' || category === 'achievement' || 
-              category === 'academic' || category === 'awards') {
+
+          if (['achievements', 'achievement', 'academic', 'awards'].includes(category)) {
             categorizedData.achievements.push(item);
-          } else if (category === 'events' || category === 'event') {
+          } else if (['events', 'event'].includes(category)) {
             categorizedData.events.push(item);
           } else if (category === 'campus') {
             categorizedData.campus.push(item);
-          } else if (category === 'activities' || category === 'activity') {
+          } else if (['activities', 'activity'].includes(category)) {
             categorizedData.activities.push(item);
           } else {
             categorizedData.others.push(item);
           }
         });
-        
+
         setGalleryData(categorizedData);
       } catch (err) {
         console.error('Failed to fetch gallery images:', err);
@@ -65,33 +63,48 @@ const Gallery = () => {
     fetchGalleryImages();
   }, []);
 
-  // Image gallery component (simplified - no animations)
+  // PAGINATED IMAGE GALLERY COMPONENT
   const ImageGallery = ({ images, title, description }) => {
-    if (images.length === 0) return null;
+    if (!images || images.length === 0) return null;
+
+    const IMAGES_PER_PAGE = 6;
+    const [page, setPage] = useState(1);
+
+    const totalPages = Math.ceil(images.length / IMAGES_PER_PAGE);
+
+    const currentImages = images.slice(
+      (page - 1) * IMAGES_PER_PAGE,
+      page * IMAGES_PER_PAGE
+    );
 
     return (
       <div className="mb-12">
         <h2 className="text-2xl font-semibold text-blue-800 mb-4">{title}</h2>
         <p className="text-lg leading-relaxed mb-6">{description}</p>
+
+        {/* IMAGES GRID */}
         <div className="grid md:grid-cols-3 gap-6">
-          {images.map((image, index) => (
+          {currentImages.map((image, index) => (
             <div
               key={`${image.file_url}-${index}`}
               className="h-64 rounded-lg shadow-md overflow-hidden group relative"
             >
-              <img 
-                src={image.file_url} 
+              <img
+                src={image.file_url}
                 alt={image.title || 'Gallery image'}
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 loading="lazy"
                 onError={(e) => {
-                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
+                  e.target.src =
+                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
                 }}
               />
+
+              {/* Hover Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                 <h3 className="text-white font-semibold text-lg">{image.title}</h3>
                 <p className="text-white/90 text-sm line-clamp-2">{image.description}</p>
-                {image.tags && image.tags.length > 0 && (
+                {image.tags?.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
                     {image.tags.map((tag, tagIndex) => (
                       <span key={tagIndex} className="text-xs bg-blue-500/80 text-white px-2 py-1 rounded">
@@ -104,6 +117,29 @@ const Gallery = () => {
             </div>
           ))}
         </div>
+
+        {/* PAGINATION */}
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <button
+            className="px-4 py-2 bg-blue-800 text-white rounded disabled:opacity-40"
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
+
+          <span className="text-gray-700 font-semibold">
+            Page {page} of {totalPages}
+          </span>
+
+          <button
+            className="px-4 py-2 bg-blue-800 text-white rounded disabled:opacity-40"
+            onClick={() => setPage(page + 1)}
+            disabled={page === totalPages}
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
   };
@@ -111,7 +147,8 @@ const Gallery = () => {
   return (
     <>
       <Header />
-      <main className="pt-28 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
+
+      <main className="pt-32 md:pt-44 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
         <section className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-bold text-center text-blue-900 mb-10 border-b pb-4">
             School Gallery
@@ -131,40 +168,37 @@ const Gallery = () => {
               <ImageGallery
                 images={galleryData.achievements}
                 title="Academic & Co-curricular Achievements"
-                description="Our students have made us proud through remarkable accomplishments in academics, arts, science fairs, 
-                and inter-school competitions."
+                description="Our students have made us proud through remarkable accomplishments in academics, arts, science fairs, and inter-school competitions."
               />
-              
+
               <ImageGallery
                 images={galleryData.events}
                 title="Cultural & Annual Events"
-                description="We celebrate diversity and creativity through our Annual Day, Cultural Fest, 
-                and various special occasions throughout the academic year."
+                description="We celebrate diversity and creativity through our Annual Day, Cultural Fest, and special occasions throughout the academic year."
               />
-              
+
               <ImageGallery
                 images={galleryData.activities}
                 title="Student Activities"
-                description="Our students actively participate in a variety of extracurricular activities that 
-                foster creativity, teamwork, and leadership skills."
+                description="Our students actively participate in extracurricular activities that foster creativity, teamwork, and leadership skills."
               />
-              
+
               <ImageGallery
                 images={galleryData.campus}
                 title="Campus Tour"
-                description="Explore our beautiful campus facilities that provide an ideal environment for 
-                learning and growth."
+                description="Explore our beautiful campus facilities that provide an ideal environment for learning and growth."
               />
-              
+
               <ImageGallery
                 images={galleryData.others}
                 title="More Highlights"
-                description="Additional moments captured across various school initiatives and special programs."
+                description="Additional moments captured across various school initiatives and programs."
               />
             </>
           )}
         </section>
       </main>
+
       <Footer />
     </>
   );

@@ -92,10 +92,11 @@ const Infrastructure = () => {
       {loading && <Loader />}
 
       <Header />
-      <div className="bg-[#f9faff] px-6 pt-32 pb-16 font-sans">
-        <h2 className="text-4xl font-bold text-center text-blue-900 border-b-2 border-gray-200 pb-4 mb-14">
-          Our Campus Infrastructure
-        </h2>
+      <main className="pt-32 md:pt-44 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
+        <section className="max-w-6xl mx-auto">
+          <h1 className="text-4xl font-bold text-center text-blue-900 mb-10 border-b pb-4">
+            Infrastructure
+          </h1>
 
         <p className="max-w-3xl mx-auto text-center text-gray-600 text-lg mb-12">
           We take pride in our modern infrastructure designed to support a holistic educational experience—spanning academics, arts, sports, and beyond.
@@ -122,8 +123,10 @@ const Infrastructure = () => {
             </div>
           );
         })}
-      </div>
+  
+      </section>
       <Footer />
+      </main>
     </div>
   );
 };

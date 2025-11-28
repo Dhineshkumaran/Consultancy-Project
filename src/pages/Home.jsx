@@ -5,8 +5,13 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { supabase } from '../config/supabaseClient';
 import Loader from "./Loader";
+import School from "../assets/school.png";
+import textSvg from "../assets/text-pattern.svg";
+import { Link } from "react-router-dom";
+import Poster from "../assets/poster.png"
 
 // Scroll animation hook
+const POSTER_SHOWN_KEY = 'posterShown';
 const useScrollAnimation = (direction = "left") => {
   const ref = useRef();
 
@@ -37,6 +42,9 @@ const HomePage = () => {
   const [highlights, setHighlights] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const initialShowPoster = sessionStorage.getItem(POSTER_SHOWN_KEY) === null;
+  const [showPoster, setShowPoster] = useState(initialShowPoster);
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -83,46 +91,319 @@ const HomePage = () => {
     getHighlights();
   }, []);
 
-  const heroRef = useScrollAnimation("left");
-  const activitiesRef = useScrollAnimation("right");
-  const aboutRef = useScrollAnimation("left");
-  const leadershipRef = useScrollAnimation("right");
-  const highlightsRef = useScrollAnimation("left");
+  // --- Animation Hooks ---
+  const heroRef = useScrollAnimation("left"); // Already applied to the Hero section content (not the whole section, but that's fine for the example)
+  const activitiesRef = useScrollAnimation("right"); // Applied to the first Activities section
+  const aboutRef = useScrollAnimation("left"); // Applied to the About Us section
+  const leadershipRef = useScrollAnimation("right"); // Applied to the Leadership Speaks section
+
+  // NEW HOOK: For the second Global Activities section
+  const globalActivities2Ref = useScrollAnimation("left"); 
+  
+  // NOTE: highlightsRef is already declared and applied below.
+  const highlightsRef = useScrollAnimation("left"); 
+  // -----------------------
+
+  useEffect(() => {
+        // This runs every time the component mounts (initial load or soft navigation to /)
+        
+        if (showPoster) {
+            // Set the flag in session storage immediately after showing the poster.
+            // This flag will persist across soft navigations and reloads.
+            sessionStorage.setItem(POSTER_SHOWN_KEY, 'true');
+        }
+        
+    }, [showPoster]); // Dependency array: run when showPoster state changes
+
+    const closePoster = () => {
+        // When the user manually closes it, we hide it immediately.
+        setShowPoster(false);
+        // The sessionStorage flag ensures it won't pop up again even on a soft navigation.
+    };
+
+// ... (rest of the code)
+  const parallaxRef1 = useRef();
+  const parallaxRef2 = useRef();
+  const parallaxRef3 = useRef();
+  const parallaxRef4 = useRef();
+  const parallaxRefMain = useRef();
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const moveX = (e.clientX / window.innerWidth - 0.5) * 25;
+      const moveY = (e.clientY / window.innerHeight - 0.5) * 25;
+
+      const applyMove = (ref, factorX, factorY) => {
+        if (ref.current) {
+          ref.current.style.transform = `translate(${moveX * factorX}px, ${moveY * factorY}px)`;
+        }
+      };
+
+      applyMove(parallaxRef1, 1.2, 1.2); // Book
+      applyMove(parallaxRef2, -1.1, -1.1); // Graduation cap
+      applyMove(parallaxRef3, 0.8, -1.3); // Pencil
+      applyMove(parallaxRef4, -0.9, 0.9); // Globe
+      applyMove(parallaxRefMain, 0.4, 0.4); // Main school image
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
     <div className="homepage bg-gray-50">
       {loading && <Loader />}
+      {/* Poster only shows if state is true */}
+      {showPoster && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-[9999]">
+          
+          <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-[90%] relative animate-fadeIn">
+            
+            {/* Close Button */}
+            <button
+              onClick={closePoster}
+              className="absolute top-3 right-3 text-gray-600 hover:text-black text-xl"
+            >
+              ✕
+            </button>
+
+            {/* Poster Image */}
+            <img
+              src={Poster}
+              alt="Poster"
+              className="rounded-xl w-full object-cover"
+            />
+          </div>
+
+        </div>
+
+      )}
       
       <Header />
 
-      {/* Hero Section */}
-      <section ref={heroRef} className="min-h-screen flex items-center bg-gray-100 px-6 md:px-16 py-12 pt-32">
-        <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between">
-          <div className="md:w-1/2 text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
-              Global Matric Higher Secondary School
+<section className="
+  relative 
+  bg-gradient-to-br from-[#F7F5FF] to-[#3c4bcf] 
+  text-[#1a1a1a] 
+  pt-[100px]     /* mobile */
+  md:pt-[160px]  /* tablet */
+  lg:pt-[180px]  /* desktop */
+  pb-32
+">
+
+        {/* Curved SVG Wave */}
+        <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 220">
+          <path fill="#f0eff7ff" d="M0,192L80,181.3C160,171,320,149,480,144C640,139,800,149,960,149.3C1120,149,1280,139,1360,133.3L1440,128V220H0Z"/>
+        </svg>
+
+
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center relative z-10">
+
+          {/* Left Content (Applying heroRef here for the main content) */}
+          <div ref={heroRef}>
+            <span className="bg-yellow-400 text-[#1a1a1a] font-bold px-4 py-1 rounded-full text-sm tracking-wide">
+              Since 2008 – Excellence in Education
+            </span>
+
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mt-4 text-[#10163a]">
+              Where Learning Meets<br />
+              <span className="text-[#6543ff]">Character & Innovation</span>
             </h1>
-            <p className="text-lg text-gray-700 mb-6">
-              🎓 "Education is not the filling of a pail, but the lighting of a fire." <br />
-              At <span className="font-semibold text-blue-800">GMHSS</span>, we ignite 🔥 curiosity, foster 💡 critical thinking, and empower students to shine 🌟 with knowledge and compassion around the globe 🌍.
+
+            <p className="text-lg mt-4 text-[#2b2b2b] opacity-90">
+              A transformative environment nurturing confident, curious and compassionate achievers.
             </p>
-          </div>
-          <div className="md:w-1/2 mb-10 md:mb-0 flex justify-center">
-            <div className="relative group">
-              <img src="https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.55.10_cc08c3c2.jpg"
-                alt="Campus Building"
-                className="relative w-full max-w-xl mx-auto rounded-lg transform transition-transform duration-500 group-hover:scale-105"
-              />
+
+            <div className="mt-6 flex gap-4">
+              <Link to="/admissions">
+                <button className="bg-yellow-400 text-[#10163a] font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-yellow-300 transition">
+                  Admissions Open
+                </button>
+              </Link>
+
+              <Link to="/about-us">
+                <button className="border border-[#10163a] text-[#10163a] px-6 py-3 rounded-lg hover:bg-[#10163a] hover:text-white transition">
+                  Discover School
+                </button>
+              </Link>
             </div>
           </div>
+
+          {/* Right Image with Glow (No ref applied here, as heroRef is applied to the left content) */}
+          <div className="relative flex justify-center">
+            <img
+              src={school}
+              alt="Campus"
+              className="w-72 md:w-[420px] rounded-xl shadow-2xl "
+            />
+            <div className="absolute -z-10 w-72 md:w-[440px] h-72 md:h-[440px] bg-yellow-300 opacity-20 blur-3xl rounded-full"></div>
+          </div>
+
         </div>
       </section>
 
-      {/* Activities Section */}
-      <section ref={activitiesRef} className="py-16 px-6 md:px-20 bg-gradient-to-r from-white via-blue-50 to-white">
-        <h2 className="text-4xl font-bold text-center text-blue-900 mb-12">
-          🌐 Global Activities
+      {/* Activities Section (First) - Already had activitiesRef */}
+      <section ref={activitiesRef} className="py-20 px-6 md:px-16 bg-white">
+        <div className="text-center mb-12">
+          <h2 className="relative inline-block text-4xl font-bold text-gray-800">
+            Global Activities
+            <span className="absolute left-1/2 -bottom-2 w-3/4 h-2 bg-yellow-400 opacity-60 transform -translate-x-1/2"></span>
+          </h2>
+        </div>
+
+        <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              // New Icon: Innovative Teaching
+              icon: "👨‍🏫",
+              title: "Innovative Teaching",
+              iconColor: "text-purple-600",
+              bgColor: "bg-purple-100",
+              text: "Academic excellence comes from setting high standards, vigorously pursuing them and nurturing an enthusiasm for learning.",
+            },
+            {
+              // New Icon: Sports Education
+              icon: "⚽",
+              title: "Sports Education",
+              iconColor: "text-green-600",
+              bgColor: "bg-green-100",
+              text: "Champions aren't made in the gym. Champions are made from something they have deep inside them—a desire, a dream, a vision.",
+            },
+            {
+              // New Icon: Focus on Innovations
+              icon: "💡",
+              title: "Focus on Innovations",
+              iconColor: "text-pink-600",
+              bgColor: "bg-pink-100",
+              text: "The world’s greatest minds to create a vibrant, engaging and learning environment that builds different skills for the future generations.",
+            },
+            {
+              // New Icon: Well Stocked Library
+              icon: "📚",
+              title: "Well Stocked Library",
+              iconColor: "text-orange-600",
+              bgColor: "bg-orange-100",
+              text: "Global International School library is a rich treasure trove of encyclopedia, illustrated dictionaries and popular Science books with series such...",
+            },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-2xl shadow-lg p-6 text-center border-t-4 border-transparent hover:border-blue-500 transition duration-300 transform hover:-translate-y-1"
+            >
+              {/* Icon Wrapper (Circle background) */}
+              <div className={`w-16 h-16 ${item.bgColor} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                <div className={`text-3xl ${item.iconColor}`}>{item.icon}</div>
+              </div>
+              
+              <h3 className="text-xl font-bold text-gray-800 mb-3">{item.title}</h3>
+              <p className="text-gray-600 text-sm">
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* About Us Section - Already had aboutRef */}
+      <section ref={aboutRef} className="relative py-8 px-4 md:px-16 bg-white overflow-hidden">
+        {/* Reduced vertical gap for mobile/flex-col layout to gap-6 */}
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
+            
+            {/* Left Side: Images and Decorative Elements */}
+            {/* Removed max-h-[350px] for better responsiveness */}
+            <div className="relative w-full lg:w-1/2 flex justify-center items-center"> 
+                
+                {/* Dotted Pattern - Adjusted placement for neater corner alignment */}
+                <div className="absolute top-0 left-11 transform -translate-x-10 -translate-y-10 z-0 opacity-80">
+                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="dotPatternAbout" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                                <circle cx="2" cy="2" r="2" fill="#3c2684"/> 
+                            </pattern>
+                        </defs>
+                        <rect width="60" height="60" fill="url(#dotPatternAbout)"/>
+                    </svg>
+                </div>
+
+                {/* Pink Blob (Bottom-Left) - Adjusted bottom position for neatness */}
+                <div className="absolute bottom-0 left-0 transform translate-y-1/2 -translate-x-1/4 z-0">
+                    <div className="w-32 h-32 bg-pink-500 rounded-full opacity-60" 
+                          style={{clipPath: 'polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%)', transform: 'rotate(45deg)'}}>
+                    </div>
+                </div>
+
+                {/* Image Grid - Added aspect-square for the smaller images for mobile neateness */}
+              <div className="relative z-10 grid grid-cols-2 grid-rows-2 gap-1 w-full max-w-lg h-[350px]">
+                      {/* Large Image (Building) - Row 1 & 2, Column 1 */}
+                      <img
+                        src={School}
+                        alt="School Building Exterior"
+                        className="col-span-1 row-span-2 w-full h-full object-cover rounded-lg shadow-xl"
+                      />
+
+                      {/* Top Right Image - ADDED aspect-square for better proportion */}
+                      <img
+                        src={School}
+                        alt="Students in Classroom"
+                        className="col-span-1 row-span-1 w-full h-full object-cover rounded-lg shadow-xl aspect-square"
+                      />
+
+                      {/* Bottom Right Image - ADDED aspect-square for better proportion */}
+                      <img
+                        src={School}
+                        alt="Group of Students"
+                        className="col-span-1 row-span-1 w-full h-full object-cover rounded-lg shadow-xl aspect-square"
+                      />
+                </div>
+            </div>
+
+            {/* Right Side: Text and Button (Margins are minimized for height reduction) */}
+            <div className="w-full lg:w-1/2 text-center lg:text-left pt-6 lg:pt-0">
+                {/* Heading margin reduced from mb-4 to mb-3 */}
+                <h2 className="text-4xl font-extrabold text-gray-800 mb-3 relative inline-block">
+                    About Us
+                    
+                    {/* SVG positioning remains fixed */}
+                   <img 
+                        src={textSvg} 
+                        alt="Decorative underline graphic"
+                        className="absolute left-1/2 top-[100%] -translate-x-1 z-0" 
+                        style={{ 
+                            width: '120%', 
+                            height: 'auto',
+                        }}
+                    />
+                </h2>
+                {/* Paragraph margin reduced from mb-4 to mb-3 */}
+                <p className="text-gray-700 text-base mb-3 leading-relaxed">
+                    Welcome to the **Global International School**. We are a part of **Global Educational Trust**, which has a strong presence on the education map of Kangayam Taluk, Tiruppur. The Trust has been running **Global International School (CBSE)** and **Global Matriculation Higher Secondary School**.
+                </p>
+                {/* Paragraph margin reduced from mb-6 to mb-4 */}
+                <p className="text-gray-700 text-base mb-4 leading-relaxed">
+                    We, at Global International School, are committed to **excellence in education** to shape future of our nation.
+                </p>
+                {/* ... Read More Button ... */}
+                <Link to="/about-us">
+                    <button className="bg-[#3c2684] text-white font-semibold py-2.5 px-6 rounded-lg shadow-md hover:bg-purple-700 transition duration-300 text-sm">
+                        Read More
+                    </button>
+                </Link>
+            </div>
+        </div>
+      </section>
+
+      {/* Global Activities Section (Second) - New ref applied here */}
+      <section 
+        ref={globalActivities2Ref} 
+        className="max-w-7xl mx-auto py-4 px-10 mt-16 rounded-2xl border-5 border-pink-700 bg-blue-900 shadow-xl"
+      >
+
+        {/* New container for reduced width and rounded border */}
+        {/* Heading margin reduced from mb-12 to mb-8 */}
+        <h2 className="text-4xl font-bold text-center text-white mb-8">
+            🌐 Global Activities
         </h2>
+        {/* The grid gap (gap-8) remains the same, but the overall container is tighter */}
         <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-3">
           {[
             {
@@ -146,7 +427,7 @@ const HomePage = () => {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 hover:shadow-2xl transition duration-300"
+              className="bg-gray-50 border border-gray-200 rounded-xl shadow-lg p-6 hover:shadow-2xl transition duration-300"
             >
               <div className={`text-4xl mb-4 ${item.color}`}>{item.icon}</div>
               <h3 className="text-xl font-bold text-blue-800 mb-2">{item.title}</h3>
@@ -156,126 +437,82 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* About Us Section */}
-      <section ref={aboutRef} className="py-16 px-6 md:px-20 bg-white">
-        <h2 className="text-4xl font-bold text-center text-blue-900 mb-12">About Us</h2>
-        <div className="flex flex-col md:flex-row items-center gap-10">
-          <div className="md:w-1/2 space-y-6">
-            <h3 className="text-2xl font-semibold text-blue-800">Our Mission</h3>
-            <p className="text-gray-700 text-lg leading-relaxed">
-              At Global Institute of Excellence, our mission is to foster holistic development, cultivate innovation,
-              and create a collaborative environment for students and educators worldwide.
-              We strive to prepare our students not only academically, but also socially and ethically for the global stage.
-            </p>
-          </div>
-          <div className="md:w-1/2 space-y-6">
-            <h3 className="text-2xl font-semibold text-blue-800 text-center md:text-left">Our Vision</h3>
-            <p className="text-gray-700 text-lg leading-relaxed">
-              To be a global leader in education, inspiring innovation and empowering students to thrive in an interconnected world.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Leadership Speaks Section - Already had leadershipRef */}
+      <section ref={leadershipRef} className="py-16 px-6 md:px-16 bg-white">
+  <h2 className="text-3xl font-bold text-center text-blue-900 mb-10">
+    Leadership Speaks
+  </h2>
 
-      <section ref={leadershipRef} className="py-20 px-6 md:px-16 bg-white">
-        <h2 className="text-4xl font-bold text-center text-blue-900 mb-12">Leadership Speaks</h2>
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="bg-yellow-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-yellow-400">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-yellow-400 shadow-lg">
-                  <img 
-                    src={principalImage} 
-                    alt="Principal V MATHIVANAN" 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                  <div className="w-full h-full bg-yellow-200 flex items-center justify-center text-4xl text-yellow-600 hidden">
-                    👨‍🎓
-                  </div>
-                </div>
-              </div>
-              <div className="flex-1 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start mb-4">
-                  <svg className="w-8 h-8 text-yellow-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h.01M12 7h.01M16 7h.01M12 19l-7-7h14l-7 7z" />
-                  </svg>
-                  <h4 className="text-xl font-semibold text-yellow-600">Principal's Message</h4>
-                </div>
-                <p className="text-gray-700 text-sm mb-4 italic">
-                  "We believe in nurturing future leaders through a holistic approach to education."
-                </p>
-                <div className="border-t border-yellow-200 pt-4">
-                  <h5 className="font-bold text-blue-800 text-lg mb-2">V MATHIVANAN</h5>
-                  <p className="text-sm text-gray-600 mb-1">M.A., M.A., M.Phil., M.Ed., PGDCA.</p>
-                  <p className="text-sm font-medium text-yellow-600">Principal</p>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
 
-{/*           <div className="bg-blue-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-blue-400">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-400 shadow-lg">
-                  <div className="w-full h-full bg-blue-200 flex items-center justify-center text-4xl text-blue-600">
-                    👨‍💼
-                  </div>
-                </div>
-              </div>
-              <div className="flex-1 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start mb-4">
-                  <svg className="w-8 h-8 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h18M3 12h18M3 17h18" />
-                  </svg>
-                  <h4 className="text-xl font-semibold text-blue-500">Dean's Message</h4>
-                </div>
-                <p className="text-gray-700 text-sm mb-4 italic">
-                  "Collaboration, curiosity, and commitment are at the heart of our academic spirit."
-                </p>
-                <div className="border-t border-blue-200 pt-4">
-                  <h5 className="font-bold text-blue-800 text-lg mb-2">Dean Name</h5>
-                  <p className="text-sm text-gray-600 mb-1">Qualifications</p>
-                  <p className="text-sm font-medium text-blue-600">Dean</p>
-                </div>
-              </div>
-            </div>
-          </div> */}
+    {/* Correspondent */}
+    <div className="bg-[#FFF8E6] p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 text-center">
+      <img
+        src={principalImage}
+        alt="Correspondent"
+        className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
+      />
+      <h3 className="text-lg font-bold text-gray-900">Mr</h3>
+      <p className="text-sm text-gray-600 mb-3">Correspondent</p>
+      <p className="text-gray-700 text-sm mb-4">
+        Inspiring smart and fast learners.
+      </p>
+      <a
+  href="/principal-message"
+  className="text-red-500 text-sm font-semibold hover:underline"
+>
+  Read more →
+</a>
+    </div>
 
-{/*           <div className="bg-purple-50 p-6 rounded-xl shadow hover:shadow-lg transition duration-300 border-t-4 border-purple-400">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-purple-400 shadow-lg">
-                  <div className="w-full h-full bg-purple-200 flex items-center justify-center text-4xl text-purple-600">
-                    👩‍💼
-                  </div>
-                </div>
-              </div>
-              <div className="flex-1 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start mb-4">
-                  <svg className="w-8 h-8 text-purple-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <h4 className="text-xl font-semibold text-purple-500">Director's Message</h4>
-                </div>
-                <p className="text-gray-700 text-sm mb-4 italic">
-                  "Our goal is to build bridges between students globally through meaningful interactions."
-                </p>
-                <div className="border-t border-purple-200 pt-4">
-                  <h5 className="font-bold text-blue-800 text-lg mb-2">Director Name</h5>
-                  <p className="text-sm text-gray-600 mb-1">Qualifications</p>
-                  <p className="text-sm font-medium text-purple-600">Director</p>
-                </div>
-              </div>
-            </div>
-          </div> */}
-        </div>
-      </section>
+    {/* Secretary */}
+    <div className="bg-[#EFFFF6] p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 text-center">
+      <img
+        src={principalImage}
+        alt="Secretary"
+        className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
+      />
+      <h3 className="text-lg font-bold text-gray-900">Mr. ___________</h3>
+      <p className="text-sm text-gray-600 mb-3">Secretary</p>
+      <p className="text-gray-700 text-sm mb-4">
+        Supporting academic growth with values.
+      </p>
+      <a
+  href="/secretary-message"
+  className="text-red-500 text-sm font-semibold hover:underline"
+>
+  Read more →
+</a>
+    </div>
 
-      {/* Recent Highlights Section */}
+    {/* Principal */}
+    <div className="bg-[#F2EEFF] p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 text-center">
+      <img
+        src={principalImage}
+        alt="Principal"
+        className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
+      />
+      <h3 className="text-lg font-bold text-gray-900">
+        Mr.
+      </h3>
+      <p className="text-sm text-gray-600 mb-3">Principal</p>
+      <p className="text-gray-700 text-sm mb-4">
+        Guiding every child's potential.
+      </p>
+      <a
+  href="/correspondent-message"
+  className="text-red-500 text-sm font-semibold hover:underline"
+>
+  Read more →
+</a>
+    </div>
+
+  </div>
+</section>
+
+
+
+      {/* Recent Highlights Section - Already had highlightsRef */}
       <section ref={highlightsRef} className="py-20 px-6 md:px-16 bg-gray-100">
         <h2 className="text-4xl font-bold text-center text-blue-900 mb-12">Recent Highlights</h2>
         {error ? (
