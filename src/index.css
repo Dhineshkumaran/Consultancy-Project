@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes slide-in-left {
+  from { transform: translateX(-80px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-in-right {
+  from { transform: translateX(80px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.slide-in-left {
+  animation: slide-in-left 0.8s ease-out forwards;
+}
+.slide-in-right {
+  animation: slide-in-right 0.8s ease-out forwards;
+}
+.opacity-0 {
+  opacity: 0;
+}
