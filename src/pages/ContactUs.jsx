@@ -46,7 +46,7 @@ const ContactUs = () => {
     `;
 
     const response = await sendEmail(
-      'gmhss701@gmail.com',
+      'abhinayashrinivasan2004@gmail,com',
       `Inquiry: ${subject}`,
       htmlContent
     );
@@ -104,7 +104,7 @@ const ContactUs = () => {
             <h2 className="text-2xl font-semibold text-blue-800 mb-4">School Contact Information</h2>
             <p className="mb-2"><strong>Address:</strong> Dharapuram Road, Kangayam, A.P. Pudur, Kangayam Taluk, Tiruppur – 638701</p>
             <p className="mb-2"><strong>Phone:</strong> +91 97503 99555</p>
-            <p className="mb-2"><strong>Email:</strong> gmhss701@gmail.com</p>
+            <p className="mb-2"><strong>Email:</strong> globalkangayam@gmail.com</p>
           </div>
 
           <div ref={formRef} className="bg-white p-6 rounded-lg shadow-md">

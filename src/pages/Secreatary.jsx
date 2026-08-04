@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import principalImg from "../assets/principal.jpg"; // update image path
+import principalImg from "../assets/secretary.jpg"; // update image path
 import Header from "./Header";
 import Footer from "./Footer";
 import Loader from './Loader';

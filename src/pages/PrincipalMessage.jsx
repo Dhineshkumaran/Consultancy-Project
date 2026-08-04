@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import principalImg from "../assets/principal.jpg"; // update image path
+import principalImg from "../assets/noimage.jpg"; // update image path
 import Header from "./Header";
 import Footer from "./Footer";
 import Loader from './Loader';
@@ -80,7 +80,7 @@ function PrincipalMessage() {
 
             {/* Principal Name */}
             <div className="pt-4">
-              <p className="font-bold text-gray-900">Mr. P. Mathivanan M.A., M.A., M.Phil., M.Ed., PGDCA.</p>
+              <p className="font-bold text-gray-900">Mrs. Gomathi S Msc.,B.Ed</p>
               <p className="text-gray-700">Principal</p>
             </div>
           </div>

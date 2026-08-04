@@ -23,7 +23,7 @@ const Footer = () => {
         {/* Email */}
         <div className="flex items-center gap-3 text-base sm:text-lg">
           <FaEnvelope className="text-red-400 text-2xl" /> 
-          <span>globalcbse.kgm@gmail.com</span>
+          <span>globalkangayam@gmail.com</span>
         </div>
         
         {/* Address */}
@@ -45,16 +45,16 @@ const Footer = () => {
             <img src={logo} alt="School Logo" className="w-14 h-14 object-contain mt-1" /> {/* Slightly smaller logo */}
             <div className="text-left">
               <h3 className="font-bold text-base text-gray-800 leading-tight mb-1">
-                Global International School
+                Global Matriculation Higher Secondary School, Kangayam
               </h3>
               <p className="text-xs leading-snug">
-                Affiliated to CBSE, New Delhi. Affiliation <br/> No. 1931647, Dharapuram Road, <br/> Kangayam, A.P. Pudur, Kangayam Taluk, Tiruppur – 638701
+              Dharapuram Road, <br/> Kangayam, A.P. Pudur, Kangayam Taluk, Tiruppur – 638701
               </p>
             </div>
           </div>
           
           <p className="text-sm leading-relaxed mt-3 max-w-[280px]"> {/* mt-3 instead of mt-4 */}
-            Welcome to the Global International School. We are a part of Global Educational Trust, which has a strong presence on the education map of Kangayam Taluk, Tiruppur.
+            Welcome to the Global Matriculation Higher Secondary School. We are a part of Global Institutions, which has a strong presence on the education map of Kangayam Taluk, Tiruppur.
           </p>
         </div>
 

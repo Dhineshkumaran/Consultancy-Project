@@ -28,15 +28,15 @@ function Header() {
     },
 
     { name: "Infrastructure", path: "/infrastructure" },
-    {
-    name: "Academic",
-    path: "/academics",
-    submenu: [
-      { name: "Global Magazines", path: "/magazine" },
-      { name: "Student's Corner", path: "/students-corner" },
-      { name: "Achiever's Section", path: "/achievers-section" },
-    ],
-  },
+  //   {
+  //   name: "Academic",
+  //   path: "/academics",
+  //   submenu: [
+  //     // { name: "Global Magazines", path: "/magazine" },
+  //     { name: "Student's Corner", path: "/students-corner" },
+  //     { name: "Achiever's Section", path: "/achievers-section" },
+  //   ],
+  // },
     { name: "Admission", path: "/admissions" },
     { name: "Gallery", path: "/gallery" },
     { name: "Careers", path: "/careers" },

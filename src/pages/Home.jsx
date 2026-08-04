@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import school from "../assets/school.png";
-import principalImage from "../assets/principal.jpg";
+import principalImage from "../assets/noimage.jpg";
+import correspondentImage from "../assets/noimage.jpg";
+import secretaryImage from "../assets/secretary.jpg";
 import Footer from "./Footer";
 import Header from "./Header";
 import { supabase } from '../config/supabaseClient';
@@ -202,7 +204,7 @@ const HomePage = () => {
           {/* Left Content (Applying heroRef here for the main content) */}
           <div ref={heroRef}>
             <span className="bg-yellow-400 text-[#1a1a1a] font-bold px-4 py-1 rounded-full text-sm tracking-wide">
-              Since 2008 – Excellence in Education
+              Since 1993 – Excellence in Education
             </span>
 
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mt-4 text-[#10163a]">
@@ -448,17 +450,17 @@ const HomePage = () => {
     {/* Correspondent */}
     <div className="bg-[#FFF8E6] p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 text-center">
       <img
-        src={principalImage}
+        src={correspondentImage}
         alt="Correspondent"
         className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
       />
-      <h3 className="text-lg font-bold text-gray-900">Mr</h3>
+      <h3 className="text-lg font-bold text-gray-900">Mrs. Lalitha N</h3>
       <p className="text-sm text-gray-600 mb-3">Correspondent</p>
       <p className="text-gray-700 text-sm mb-4">
         Inspiring smart and fast learners.
       </p>
       <a
-  href="/principal-message"
+  href="/correspondent-message"
   className="text-red-500 text-sm font-semibold hover:underline"
 >
   Read more →
@@ -468,11 +470,11 @@ const HomePage = () => {
     {/* Secretary */}
     <div className="bg-[#EFFFF6] p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 text-center">
       <img
-        src={principalImage}
+        src={secretaryImage}
         alt="Secretary"
         className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
       />
-      <h3 className="text-lg font-bold text-gray-900">Mr. ___________</h3>
+      <h3 className="text-lg font-bold text-gray-900">Mr. Nachimuthu N</h3>
       <p className="text-sm text-gray-600 mb-3">Secretary</p>
       <p className="text-gray-700 text-sm mb-4">
         Supporting academic growth with values.
@@ -493,14 +495,14 @@ const HomePage = () => {
         className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
       />
       <h3 className="text-lg font-bold text-gray-900">
-        Mr.
+        Mrs. Gomathi S
       </h3>
       <p className="text-sm text-gray-600 mb-3">Principal</p>
       <p className="text-gray-700 text-sm mb-4">
         Guiding every child's potential.
       </p>
       <a
-  href="/correspondent-message"
+  href="/principal-message"
   className="text-red-500 text-sm font-semibold hover:underline"
 >
   Read more →

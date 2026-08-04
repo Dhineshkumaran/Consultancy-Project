@@ -141,8 +141,8 @@ const Careers = () => {
             <p className="text-lg font-semibold mb-4">
               To apply, please send your updated resume and a cover letter to:
             </p>
-            <a href="mailto:gmhss701@gmail.com" className="text-blue-700 font-bold underline">
-              gmhss701@gmail.com
+            <a href="mailto:globalkangayam@gmail.com" className="text-blue-700 font-bold underline">
+              globalkangayam@gmail.com
             </a>
           </div>
         </section>
