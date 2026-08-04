@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
+
+
 import Loader from "./Loader";
 
 // Hook for scroll-based animation
@@ -89,10 +89,7 @@ const Infrastructure = () => {
 
   return (
     <div>
-      {loading && <Loader />}
-
-      <Header />
-      <main className="pt-32 md:pt-44 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
+      {loading && <Loader />}<main className="pt-32 md:pt-44 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
         <section className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-bold text-center text-blue-900 mb-10 border-b pb-4">
             Infrastructure
@@ -124,9 +121,7 @@ const Infrastructure = () => {
           );
         })}
   
-      </section>
-      <Footer />
-      </main>
+      </section></main>
     </div>
   );
 };

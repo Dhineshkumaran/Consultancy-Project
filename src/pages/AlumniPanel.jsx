@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../config/supabaseClient';
-import Header from './Header';
-import Footer from './Footer';
+
+
 import { Loader, CheckCircle, AlertCircle } from 'lucide-react';
 
 // Reusable scroll animation hook
@@ -370,9 +370,7 @@ const AlumniPanel = () => {
   };
 
   return (
-    <>
-      <Header />
-      <main className="pt-40 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
+    <><main className="pt-40 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
         <section className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
             <h1 className="text-4xl font-bold text-blue-900 pb-2">Alumni Panel</h1>
@@ -429,9 +427,7 @@ const AlumniPanel = () => {
             </div>
           )}
         </section>
-      </main>
-      <Footer />
-    </>
+      </main></>
   );
 };
 

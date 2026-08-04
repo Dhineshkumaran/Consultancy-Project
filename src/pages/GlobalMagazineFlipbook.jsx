@@ -5,8 +5,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist/build/pdf";
 import "pdfjs-dist/build/pdf.worker";
-import Header from "./Header";
-import Footer from "./Footer";
+
+
 
 export default function GlobalMagazineFlipbook() {
   const [magazines, setMagazines] = useState([]);
@@ -134,9 +134,7 @@ export default function GlobalMagazineFlipbook() {
   }
 
   return (
-    <>
-    <Header />
-    <div className="max-w-4xl mx-auto px-42 py-32 mt-10">
+    <><div className="max-w-4xl mx-auto px-42 py-32 mt-10">
       <h2 className="text-3xl font-extrabold text-blue-900 mb-6">
         Global Magazine
       </h2>
@@ -210,9 +208,7 @@ export default function GlobalMagazineFlipbook() {
         .flip-next .spread { transform: rotateY(-8deg); }
         .flip-prev .spread { transform: rotateY(8deg); }
       `}</style>
-    </div>
-    <Footer />
-    </>
+    </div></>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../config/supabaseClient';
-import Header from './Header';
-import Footer from './Footer';
+
+
 
 const Gallery = () => {
   const [galleryData, setGalleryData] = useState({
@@ -145,10 +145,7 @@ const Gallery = () => {
   };
 
   return (
-    <>
-      <Header />
-
-      <main className="pt-32 md:pt-44 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
+    <><main className="pt-32 md:pt-44 pb-16 px-6 md:px-16 bg-gray-50 font-sans text-gray-800">
         <section className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-bold text-center text-blue-900 mb-10 border-b pb-4">
             School Gallery
@@ -197,10 +194,7 @@ const Gallery = () => {
             </>
           )}
         </section>
-      </main>
-
-      <Footer />
-    </>
+      </main></>
   );
 };
 
