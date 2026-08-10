@@ -13,7 +13,7 @@ const AboutUs = () => {
   const sectionContent = [
     {
       title: 'Who We Are',
-      text: 'At Global International School, we believe that education is the foundation for building a better future. Since our inception, we have been committed to fostering a learning environment that nurtures academic excellence, character development, and global citizenship.',
+      text: 'At Global Matriculation Higher Secondary School, we believe that education is the foundation for building a better future. Since our inception, we have been committed to fostering a learning environment that nurtures academic excellence, character development, and global citizenship.',
       image: {
         file_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2017.15.47_b26fb309.jpg",
         title: "Who we are"
