@@ -4,8 +4,8 @@ import principalImg from "../assets/noimage.jpg"; // update image path
 
 import Loader from './Loader';
 
-function PrincipalMessage() {
-    const [loading, setLoading] = useState(true);
+function Correspondent() {
+   const [loading, setLoading] = useState(true);
     
       useEffect(() => {
         setTimeout(() => setLoading(false), 500);
@@ -16,7 +16,7 @@ function PrincipalMessage() {
     {loading && <Loader/>}<section className="pt-[150px] md:pt-[180px] pb-20 px-6 md:px-16 bg-[#f5f7ff] min-h-screen">
       {/* Page Title */}
       <h2 className="text-3xl md:text-4xl font-bold text-[#34206f] mb-10">
-        Principal Message
+        Correspondent Message
       </h2>
 
       {/* MAIN CARD */}
@@ -37,7 +37,7 @@ function PrincipalMessage() {
         <div className="flex flex-col">
           {/* Heading with feather icon (you can add imported SVG if needed) */}
           <h3 className="text-2xl md:text-3xl font-semibold text-gray-700 flex items-center gap-3 mb-6">
-            <span>Principal's Message</span>
+            <span>Correspondent's Message</span>
             <span className="text-3xl">🖋️</span>
           </h3>
 
@@ -78,8 +78,8 @@ function PrincipalMessage() {
 
             {/* Principal Name */}
             <div className="pt-4">
-              <p className="font-bold text-gray-900">Mrs. Gomathi S Msc.,B.Ed</p>
-              <p className="text-gray-700">Principal</p>
+              <p className="font-bold text-gray-900">Mrs.N. Lalitha.</p>
+              <p className="text-gray-700">Correspondant</p>
             </div>
           </div>
         </div>
@@ -89,4 +89,4 @@ function PrincipalMessage() {
   );
 }
 
-export default PrincipalMessage;
+export default Correspondent;

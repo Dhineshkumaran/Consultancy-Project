@@ -3,8 +3,6 @@ import school from "../assets/school.png";
 import principalImage from "../assets/noimage.jpg";
 import correspondentImage from "../assets/noimage.jpg";
 import secretaryImage from "../assets/secretary.jpg";
-import Footer from "./Footer";
-import Header from "./Header";
 import { supabase } from '../config/supabaseClient';
 import Loader from "./Loader";
 import School from "../assets/school.png";
@@ -47,31 +45,6 @@ const HomePage = () => {
 
   const initialShowPoster = sessionStorage.getItem(POSTER_SHOWN_KEY) === null;
   const [showPoster, setShowPoster] = useState(initialShowPoster);
-
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-      @keyframes slide-in-left {
-        from { transform: translateX(-80px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-      @keyframes slide-in-right {
-        from { transform: translateX(80px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-      .slide-in-left {
-        animation: slide-in-left 0.8s ease-out forwards;
-      }
-      .slide-in-right {
-        animation: slide-in-right 0.8s ease-out forwards;
-      }
-      .opacity-0 {
-        opacity: 0;
-      }
-    `;
-    document.head.appendChild(style);
-    return () => document.head.removeChild(style);
-  }, []);
 
   useEffect(() => {
     const getHighlights = async () => {
@@ -180,8 +153,6 @@ const HomePage = () => {
         </div>
 
       )}
-      
-      <Header />
 
 <section className="
   relative 
@@ -452,6 +423,7 @@ const HomePage = () => {
       <img
         src={correspondentImage}
         alt="Correspondent"
+        loading="lazy"
         className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
       />
       <h3 className="text-lg font-bold text-gray-900">Mrs. Lalitha N</h3>
@@ -459,12 +431,12 @@ const HomePage = () => {
       <p className="text-gray-700 text-sm mb-4">
         Inspiring smart and fast learners.
       </p>
-      <a
-  href="/correspondent-message"
-  className="text-red-500 text-sm font-semibold hover:underline"
->
-  Read more →
-</a>
+      <Link
+        to="/correspondent-message"
+        className="text-red-500 text-sm font-semibold hover:underline"
+      >
+        Read more →
+      </Link>
     </div>
 
     {/* Secretary */}
@@ -472,6 +444,7 @@ const HomePage = () => {
       <img
         src={secretaryImage}
         alt="Secretary"
+        loading="lazy"
         className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
       />
       <h3 className="text-lg font-bold text-gray-900">Mr. Nachimuthu N</h3>
@@ -479,12 +452,12 @@ const HomePage = () => {
       <p className="text-gray-700 text-sm mb-4">
         Supporting academic growth with values.
       </p>
-      <a
-  href="/secretary-message"
-  className="text-red-500 text-sm font-semibold hover:underline"
->
-  Read more →
-</a>
+      <Link
+        to="/secretary-message"
+        className="text-red-500 text-sm font-semibold hover:underline"
+      >
+        Read more →
+      </Link>
     </div>
 
     {/* Principal */}
@@ -492,6 +465,7 @@ const HomePage = () => {
       <img
         src={principalImage}
         alt="Principal"
+        loading="lazy"
         className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
       />
       <h3 className="text-lg font-bold text-gray-900">
@@ -501,12 +475,12 @@ const HomePage = () => {
       <p className="text-gray-700 text-sm mb-4">
         Guiding every child's potential.
       </p>
-      <a
-  href="/principal-message"
-  className="text-red-500 text-sm font-semibold hover:underline"
->
-  Read more →
-</a>
+      <Link
+        to="/principal-message"
+        className="text-red-500 text-sm font-semibold hover:underline"
+      >
+        Read more →
+      </Link>
     </div>
 
   </div>
@@ -529,6 +503,7 @@ const HomePage = () => {
                   <img 
                     src={image.file_url} 
                     alt={image.title} 
+                    loading="lazy"
                     className="w-full h-full object-cover" 
                   />
                   <div className="absolute inset-0 bg-white bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -554,8 +529,6 @@ const HomePage = () => {
           </div>
         )}
       </section>
-
-      <Footer />
     </div>
   );
 };

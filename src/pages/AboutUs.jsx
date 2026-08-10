@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+
+
 import Loader from './Loader';
 
 const AboutUs = () => {
@@ -32,10 +32,7 @@ const AboutUs = () => {
   return (
     <>
       {loading && <Loader />}
-
-      <Header />
-      
-      <section className="max-w-6xl mx-auto font-sans pt-40 px-4">
+<section className="max-w-6xl mx-auto font-sans pt-40 px-4">
         <h1 className="text-4xl font-bold text-center text-blue-900 border-b-2 border-gray-200 pb-4 mb-14">
           About Our School
         </h1>
@@ -89,9 +86,7 @@ const AboutUs = () => {
           </ul>
         </div>
       </section>
-
-      <Footer />
-    </>
+</>
   );
 };
 

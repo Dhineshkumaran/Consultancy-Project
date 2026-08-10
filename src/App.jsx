@@ -10,28 +10,32 @@ import AlumniPanel from './pages/AlumniPanel';
 import Careers from './pages/Careers';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrincipalMessage from './pages/PrincipalMessage';
-import Correspondent from './pages/Correspondant';
-import Secretary from './pages/Secreatary';
+import Correspondent from './pages/Correspondent';
+import Secretary from './pages/Secretary';
 import GlobalMagazineFlipbook from './pages/GlobalMagazineFlipbook';
+import Layout from './pages/Layout';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about-us' element={<AboutUs />} />
-        <Route path='/principal-message' element={<PrincipalMessage />} />
-        <Route path='/correspondent-message' element={<Correspondent />} />
-        <Route path='/secretary-message' element={<Secretary />} />
-        <Route path='/infrastructure' element={<Infrastructure />} />
-        <Route path='/academics' element={<Academics />} />
-        <Route path='/magazine' element={<GlobalMagazineFlipbook />}/>
-        <Route path='/admissions' element={<Admissions />} />
-        <Route path='/gallery' element={<Gallery />} />
-        <Route path='/contact-us' element={<ContactUs />} />
-        <Route path='/alumni-panel' element={<AlumniPanel />} />
-        <Route path='/careers' element={<Careers />} />
-        
+        <Route element={<Layout />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/about-us' element={<AboutUs />} />
+          <Route path='/principal-message' element={<PrincipalMessage />} />
+          <Route path='/correspondent-message' element={<Correspondent />} />
+          <Route path='/secretary-message' element={<Secretary />} />
+          <Route path='/infrastructure' element={<Infrastructure />} />
+          <Route path='/academics' element={<Academics />} />
+          <Route path='/magazine' element={<GlobalMagazineFlipbook />}/>
+          <Route path='/admissions' element={<Admissions />} />
+          <Route path='/gallery' element={<Gallery />} />
+          <Route path='/contact-us' element={<ContactUs />} />
+          <Route path='/alumni-panel' element={<AlumniPanel />} />
+          <Route path='/careers' element={<Careers />} />
+          <Route path='*' element={<NotFound />} />
+        </Route>
       </Routes>
     </Router>
   );
