@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Loader from "./Loader";
+import lab from "../assets/global-school-computer-lab.jpg";
+import library from "../assets/global-school-library.jpg";
+import sports from "../assets/global-school-sports-ground.jpg";
 
 // Hook for scroll-based animation
 const useScrollAnimation = (direction = "left") => {
@@ -30,32 +33,22 @@ const useScrollAnimation = (direction = "left") => {
   return ref;
 };
 
-const infrastructureData = [
-  {
-    text: "Our state-of-the-art science and computer labs provide students with hands-on learning experiences in a safe and well-equipped environment. These labs are designed to foster curiosity, innovation, and practical application of classroom concepts.",
-    image_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.57.40_a8070b87.jpg",
-    image_title: "Computer Labs",
-    reverse: false,
-  },
-  {
-    text: "The school library is a hub of knowledge and exploration, offering a wide collection of academic resources, literature, and digital materials. It's a quiet sanctuary where students cultivate reading habits and conduct independent research.",
-    image_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.54.43_d6dfb951.jpg",
-    image_title: "Library",
-    reverse: true,
-  },
-  {
-    text: "Our smart classrooms integrate modern teaching aids like interactive whiteboards, projectors, and audio-visual tools to make learning more engaging and impactful. They support a blended approach to education that combines traditional teaching with digital innovation.",
-    image_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.57.27_a9611ca6.jpg",
-    image_title: "Smart Classrooms",
-    reverse: false,
-  },
-  {
-    text: "The play area is thoughtfully designed to promote physical development, teamwork, and recreation. Equipped with age-appropriate outdoor play equipment and green spaces, it ensures students enjoy a healthy balance of academics and play.",
-    image_url: "https://xpzpsdyhsukkdhvpxenj.supabase.co/storage/v1/object/public/gallery/images/WhatsApp%20Image%202025-05-22%20at%2016.55.10_cc08c3c2.jpg",
-    image_title: "Play Ground",
-    reverse: true,
-  },
-];
+const infrastructureData = [ { text: "Our state-of-the-art science and computer labs provide students with hands-on learning experiences in a safe and well-equipped environment. These labs are designed to foster curiosity, innovation, and practical application of classroom concepts.", 
+  image_url: lab, 
+  image_title: "Computer Labs", 
+  reverse: false, }, 
+  { text: "The school library is a hub of knowledge and exploration, offering a wide collection of academic resources, literature, and digital materials. It's a quiet sanctuary where students cultivate reading habits and conduct independent research.", 
+  image_url: library, 
+  image_title: "Library", 
+  reverse: true, }, 
+  // { text: "Our smart classrooms integrate modern teaching aids like interactive whiteboards, projectors, and audio-visual tools to make learning more engaging and impactful. They support a blended approach to education that combines traditional teaching with digital innovation.", 
+  //   image_url: lab, 
+  //   image_title: "Smart Classrooms", 
+  //   reverse: false, }, 
+    { text: "The play area is thoughtfully designed to promote physical development, teamwork, and recreation. Equipped with age-appropriate outdoor play equipment and green spaces, it ensures students enjoy a healthy balance of academics and play.", 
+    image_url: sports, 
+    image_title: "Play Ground", 
+    reverse: true, }, ];
 
 const Infrastructure = () => {
   const [loading, setLoading] = useState(true);

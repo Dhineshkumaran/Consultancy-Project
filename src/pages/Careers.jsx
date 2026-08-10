@@ -105,7 +105,7 @@ const Careers = () => {
             Careers
           </h1>
           <p className="text-lg text-center mb-12">
-            At Global International School, we're building a team of passionate educators and professionals dedicated to nurturing future leaders.
+            At Global Matriculation Higher Secondary School, we're building a team of passionate educators and professionals dedicated to nurturing future leaders.
             Explore opportunities across academic and non-academic domains.
           </p>
 

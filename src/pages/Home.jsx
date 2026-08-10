@@ -378,11 +378,11 @@ const HomePage = () => {
                 </h2>
                 {/* Paragraph margin reduced from mb-4 to mb-3 */}
                 <p className="text-gray-700 text-base mb-3 leading-relaxed">
-                    Welcome to the **Global International School**. We are a part of **Global Educational Trust**, which has a strong presence on the education map of Kangayam Taluk, Tiruppur. The Trust has been running **Global International School (CBSE)** and **Global Matriculation Higher Secondary School**.
+                    Welcome to the Global Matriculation Higer Secondary School. We are a part of Global Institutions, which has a strong presence on the education map of Kangayam Taluk, Tiruppur. We have been running Global International School (CBSE) and Global Matriculation Higher Secondary School.
                 </p>
                 {/* Paragraph margin reduced from mb-6 to mb-4 */}
                 <p className="text-gray-700 text-base mb-4 leading-relaxed">
-                    We, at Global International School, are committed to **excellence in education** to shape future of our nation.
+                    We, at Global Matriculation Higer Secondary School, are committed to excellence in education to shape future of our nation.
                 </p>
                 {/* ... Read More Button ... */}
                 <Link to="/about-us">
@@ -412,7 +412,7 @@ const HomePage = () => {
               icon: "🔄",
               title: "Virtual Exchange",
               color: "text-blue-600",
-              text: "Students collaborate with international peers through video conferences and shared digital classrooms.",
+              text: "Students collaborate with international peers through videos and shared digital classrooms.",
             },
             {
               icon: "🌍",
