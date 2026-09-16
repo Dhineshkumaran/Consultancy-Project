@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import principalImg from "../assets/noimage.jpg"; // update image path
+import principalImg from "../assets/gomathi.jpg"; // update image path
 
 
 import Loader from './Loader';
@@ -13,7 +13,8 @@ function PrincipalMessage() {
 
   return (
     <>
-    {loading && <Loader/>}<section className="pt-[150px] md:pt-[180px] pb-20 px-6 md:px-16 bg-[#f5f7ff] min-h-screen">
+    {loading && <Loader/>}
+<section className="pt-[150px] md:pt-[180px] pb-20 px-6 md:px-16 bg-[#f5f7ff] min-h-screen">
       {/* Page Title */}
       <h2 className="text-3xl md:text-4xl font-bold text-[#34206f] mb-10">
         Principal Message
@@ -85,7 +86,8 @@ function PrincipalMessage() {
         </div>
 
       </div>
-    </section></>
+    </section>
+</>
   );
 }
 

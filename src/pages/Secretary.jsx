@@ -13,7 +13,8 @@ function Secretary() {
 
   return (
     <>
-    {loading && <Loader/>}<section className="pt-[150px] md:pt-[180px] pb-20 px-6 md:px-16 bg-[#f5f7ff] min-h-screen">
+    {loading && <Loader/>}
+<section className="pt-[150px] md:pt-[180px] pb-20 px-6 md:px-16 bg-[#f5f7ff] min-h-screen">
       {/* Page Title */}
       <h2 className="text-3xl md:text-4xl font-bold text-[#34206f] mb-10">
         Secretary Message
@@ -50,14 +51,11 @@ function Secretary() {
             </p>
 
             <p>
-              Welcome to the Global family. I am excited to give the ability to 
-              lead the legacy of leaders. I am honoured to guide a dedicated 
-              team committed to nurturing every child's potential. I have been 
-              a passionate educator and a guide person to bring an excellent society.
+              Welcome to the Global family. .
             </p>
 
             <p className="italic font-semibold text-gray-900">
-              “Different things motivate different people”
+              “Education builds the foundation for a successful and meaningful life. Let us guide our children with knowledge, values, and discipline so they grow into confident and responsible citizens.”
             </p>
 
             <p>
@@ -78,14 +76,15 @@ function Secretary() {
 
             {/* Principal Name */}
             <div className="pt-4">
-              <p className="font-bold text-gray-900">Mr. N. Nachimuthi</p>
+              <p className="font-bold text-gray-900">Mr. K.S Nachimuthu</p>
               <p className="text-gray-700">Secretary</p>
             </div>
           </div>
         </div>
 
       </div>
-    </section></>
+    </section>
+</>
   );
 }
 

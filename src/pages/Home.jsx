@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import school from "../assets/school.png";
-import principalImage from "../assets/noimage.jpg";
+import principalImage from "../assets/gomathi.jpg";
 import correspondentImage from "../assets/noimage.jpg";
 import secretaryImage from "../assets/secretary.jpg";
 import { supabase } from '../config/supabaseClient';
@@ -447,7 +447,7 @@ const HomePage = () => {
         loading="lazy"
         className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
       />
-      <h3 className="text-lg font-bold text-gray-900">Mr. Nachimuthu N</h3>
+      <h3 className="text-lg font-bold text-gray-900">Mr. Nachimuthu K S</h3>
       <p className="text-sm text-gray-600 mb-3">Secretary</p>
       <p className="text-gray-700 text-sm mb-4">
         Supporting academic growth with values.
@@ -469,7 +469,7 @@ const HomePage = () => {
         className="w-28 h-28 mx-auto rounded-lg object-cover shadow mb-4"
       />
       <h3 className="text-lg font-bold text-gray-900">
-        Mrs. Gomathi S
+        Mrs. Gomathi C
       </h3>
       <p className="text-sm text-gray-600 mb-3">Principal</p>
       <p className="text-gray-700 text-sm mb-4">
